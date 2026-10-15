@@ -11,7 +11,7 @@ const DEFAULT_CART = [
     price: 1280.00,
     size: 'M',
     color: 'Raw Ecru',
-    image: 'Assets/Woman_wearing_tailored_blazer_2K_20261015150558.jpg',
+    image: 'Assets/Woman_wearing_tailored_blazer_2K_20261015150558.webP',
     quantity: 1,
     material: '100% Mongolian Cashmere'
   },
@@ -21,7 +21,7 @@ const DEFAULT_CART = [
     price: 280.00,
     size: 'S',
     color: 'Charcoal',
-    image: 'Assets/Accessories_flat-lay_on_beige_su__2K_20261015150619.jpg',
+    image: 'Assets/Accessories_flat-lay_on_beige_su__2K_20261015150619.webP',
     quantity: 1,
     material: 'Extra-fine 19.5 Micron Wool'
   }
