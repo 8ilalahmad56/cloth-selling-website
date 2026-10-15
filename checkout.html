@@ -3,12 +3,12 @@
 <head>
   <meta charset="utf-8"/>
   <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-  <title>AURELIA ATELIER — Secure Checkout</title>
+  <title>Secure Checkout — AURELIA ATELIER</title>
   
   <!-- Google Fonts: EB Garamond & Hanken Grotesk -->
   <link href="https://fonts.googleapis.com" rel="preconnect"/>
   <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
-  <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400..700;1,400..700&amp;family=Hanken+Grotesk:ital,wght@0,100..900;1,100..900&amp;display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&amp;family=Hanken+Grotesk:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&amp;display=swap" rel="stylesheet"/>
   <!-- Material Symbols Outlined -->
   <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
   
@@ -20,20 +20,20 @@
       theme: {
         extend: {
           colors: {
-            background: "#faf9f6",
-            surface: "#faf9f6",
+            background: "#faf8f5",
+            surface: "#faf8f5",
             "surface-dim": "#dbdad7",
-            "surface-container-low": "#f4f3f0",
-            "surface-container": "#efeeeb",
-            "surface-container-high": "#e9e8e5",
-            "surface-container-highest": "#e3e2e0",
-            primary: "#191817",
+            "surface-container-low": "#f4f2ee",
+            "surface-container": "#edeae4",
+            "surface-container-high": "#e7e3dc",
+            "surface-container-highest": "#ded9d0",
+            primary: "#141312",
             "on-primary": "#ffffff",
-            secondary: "#6c5b4d",
-            "on-surface": "#1a1c1a",
-            "on-surface-variant": "#4a4640",
-            outline: "#7b766f",
-            "outline-variant": "#ccc5bd"
+            secondary: "#7d6d5f",
+            "on-surface": "#141312",
+            "on-surface-variant": "#4a453e",
+            outline: "#7c766e",
+            "outline-variant": "#d4cec5"
           },
           fontFamily: {
             serif: ["EB Garamond", "Georgia", "serif"],
@@ -50,21 +50,41 @@
   <script src="script.js" defer></script>
 </head>
 
-<body class="bg-background text-on-surface antialiased selection:bg-secondary selection:text-surface min-h-screen flex flex-col justify-between">
+<body class="bg-background text-on-surface antialiased selection:bg-[#231b11] selection:text-[#faf8f5] min-h-screen flex flex-col justify-between">
+
+  <!-- TOP ANNOUNCEMENT BAR & TICKER -->
+  <aside class="announcement-bar" aria-label="Announcements">
+    <div class="max-w-[1440px] mx-auto w-full flex justify-between items-center px-4 sm:px-8">
+      <div class="announcement-ticker">
+        <span class="flex items-center gap-2">
+          <span class="announcement-dot"></span>
+          256-BIT ENCRYPTED ATELIER CHECKOUT
+        </span>
+        <span class="hidden md:inline text-outline-variant">|</span>
+        <span class="hidden md:inline">COMPLIMENTARY WORLDWIDE CLIMATE-NEUTRAL COURIER</span>
+        <span class="hidden lg:inline text-outline-variant">|</span>
+        <span class="hidden lg:inline">30-DAY COMPLIMENTARY DOORSTEP RETURNS</span>
+      </div>
+
+      <div class="flex items-center gap-4 text-[10px]">
+        <span class="text-white font-semibold">CURRENCY: EUR (€)</span>
+      </div>
+    </div>
+  </aside>
 
   <!-- MINIMALIST SECURE CHECKOUT HEADER -->
-  <header class="w-full bg-surface border-b border-outline-variant sticky top-0 z-40">
+  <header class="w-full bg-surface/90 backdrop-blur-md border-b border-outline-variant sticky top-0 z-40">
     <div class="max-w-[1440px] mx-auto px-4 sm:px-8 lg:px-16 h-20 flex items-center justify-between">
       
       <!-- Return to Product / Bag -->
-      <a class="inline-flex items-center gap-2 font-label-uppercase text-on-surface-variant hover:text-primary transition-colors group" href="product.html">
+      <a class="inline-flex items-center gap-2 font-label-uppercase text-on-surface-variant hover:text-primary transition-colors group text-xs" href="product.html">
         <span class="material-symbols-outlined text-[16px] transition-transform group-hover:-translate-x-1">arrow_back</span>
         <span>Return to Selection</span>
       </a>
 
-      <!-- Brand Identity Anchor with Logo -->
+      <!-- Brand Identity Anchor with WebP Logo -->
       <a class="flex items-center gap-3 group" href="index.html">
-        <img src="Assets/logo.jpg" alt="Aurelia Emblem" class="w-8 h-8 object-cover border border-outline-variant group-hover:border-primary transition-colors"/>
+        <img src="Assets/logo.webp" alt="Aurelia Emblem" class="w-8 h-8 object-cover border border-outline-variant group-hover:border-primary transition-colors"/>
         <span class="font-headline-md tracking-tight uppercase text-primary font-serif">AURELIA</span>
       </a>
 
@@ -86,13 +106,13 @@
         <!-- Express Payment Anchor -->
         <div class="space-y-4">
           <div class="flex items-center justify-between">
-            <span class="font-label-uppercase text-on-surface-variant">Instant Express Checkout</span>
-            <span class="font-label-uppercase text-secondary">Biometric &amp; Encrypted</span>
+            <span class="font-label-uppercase text-on-surface-variant text-xs">Instant Express Checkout</span>
+            <span class="font-label-uppercase text-secondary text-xs">Biometric &amp; Encrypted</span>
           </div>
           
           <div class="grid grid-cols-3 gap-3">
             <!-- Apple Pay -->
-            <button aria-label="Express checkout with Apple Pay" class="h-[48px] bg-primary text-on-primary flex items-center justify-center hover:bg-secondary transition-colors duration-200" type="button" onclick="showToast('Apple Pay', 'Connecting to Apple Pay secure wallet...', 'phone_iphone')">
+            <button aria-label="Express checkout with Apple Pay" class="h-[48px] bg-primary text-on-primary flex items-center justify-center hover:bg-secondary transition-colors duration-200" type="button" onclick="showToast('Apple Pay', 'Connecting to Apple Pay secure biometric wallet...', 'phone_iphone')">
               <span class="font-body-md font-medium tracking-tight text-[15px] flex items-center gap-1.5">
                 <span class="material-symbols-outlined text-[18px]">phone_iphone</span> Apple Pay
               </span>
@@ -113,7 +133,7 @@
 
           <div class="relative flex items-center justify-center py-2">
             <div class="w-full border-t border-outline-variant"></div>
-            <span class="absolute bg-background px-4 font-label-uppercase text-on-surface-variant text-[10px]">or continue with standard checkout</span>
+            <span class="absolute bg-background px-4 font-label-uppercase text-on-surface-variant text-[10px]">or continue with standard atelier checkout</span>
           </div>
         </div>
 
@@ -155,7 +175,7 @@
                 <span class="w-6 h-6 rounded-none bg-primary text-on-primary flex items-center justify-center font-label-uppercase text-[11px]">2</span>
                 <legend class="font-headline-sm text-primary">Shipping Address</legend>
               </div>
-              <span class="font-label-uppercase text-secondary">Global Courier Available</span>
+              <span class="font-label-uppercase text-secondary text-xs">Global Courier Available</span>
             </div>
             
             <div class="space-y-3 pt-2">
@@ -219,8 +239,8 @@
                 <div class="flex items-start gap-3">
                   <input checked="" class="mt-1 w-4 h-4 rounded-none border border-outline-variant text-primary focus:ring-0 bg-surface" name="shipping_method" type="radio" value="ground"/>
                   <div>
-                    <p class="font-body-md font-medium text-primary">Standard Ground</p>
-                    <p class="font-body-sm text-on-surface-variant">3–5 business days</p>
+                    <p class="font-body-md font-medium text-primary">Standard Ground (DHL Express)</p>
+                    <p class="font-body-sm text-on-surface-variant text-xs">3–5 business days • Carbon-neutral offset</p>
                   </div>
                 </div>
                 <span class="font-label-uppercase text-primary font-semibold">Free</span>
@@ -231,8 +251,8 @@
                 <div class="flex items-start gap-3">
                   <input class="mt-1 w-4 h-4 rounded-none border border-outline-variant text-primary focus:ring-0 bg-surface" name="shipping_method" type="radio" value="express"/>
                   <div>
-                    <p class="font-body-md font-medium text-primary">Express Courier</p>
-                    <p class="font-body-sm text-on-surface-variant">1–2 business days</p>
+                    <p class="font-body-md font-medium text-primary">Priority Express Courier</p>
+                    <p class="font-body-sm text-on-surface-variant text-xs">1–2 business days • Dedicated flight dispatch</p>
                   </div>
                 </div>
                 <span class="font-body-md text-primary font-medium">€35.00</span>
@@ -243,8 +263,8 @@
                 <div class="flex items-start gap-3">
                   <input class="mt-1 w-4 h-4 rounded-none border border-outline-variant text-primary focus:ring-0 bg-surface" name="shipping_method" type="radio" value="white_glove"/>
                   <div>
-                    <p class="font-body-md font-medium text-primary">White Glove Delivery</p>
-                    <p class="font-body-sm text-on-surface-variant">Scheduled hand-delivery &amp; garment care</p>
+                    <p class="font-body-md font-medium text-primary">White Glove Concierge Delivery</p>
+                    <p class="font-body-sm text-on-surface-variant text-xs">Scheduled hand-delivery, cedar steaming &amp; garment fitting</p>
                   </div>
                 </div>
                 <span class="font-body-md text-primary font-medium">€75.00</span>
@@ -266,12 +286,15 @@
             </div>
 
             <!-- Tab Selectors -->
-            <div class="grid grid-cols-2 gap-px bg-outline-variant border border-outline-variant">
-              <button class="bg-surface py-3 px-4 text-center font-label-uppercase text-primary border-b-2 border-primary" id="tab-cc" type="button">
-                Credit / Debit Card
+            <div class="grid grid-cols-3 gap-px bg-outline-variant border border-outline-variant">
+              <button class="bg-surface py-3 px-4 text-center font-label-uppercase text-primary border-b-2 border-primary font-semibold text-xs" id="tab-cc" type="button">
+                Credit Card
               </button>
-              <button class="bg-surface-container-low py-3 px-4 text-center font-label-uppercase text-on-surface-variant hover:text-primary transition-colors" id="tab-pp" type="button">
-                PayPal Digital
+              <button class="bg-surface-container-low py-3 px-4 text-center font-label-uppercase text-on-surface-variant hover:text-primary transition-colors text-xs" id="tab-pp" type="button">
+                PayPal
+              </button>
+              <button class="bg-surface-container-low py-3 px-4 text-center font-label-uppercase text-on-surface-variant hover:text-primary transition-colors text-xs" id="tab-klarna" type="button">
+                Klarna Pay
               </button>
             </div>
 
@@ -280,7 +303,7 @@
               <div>
                 <label class="atelier-label" for="card-number">Card Number</label>
                 <div class="relative">
-                  <input class="atelier-input pr-24" id="card-number" placeholder="4242 •••• •••• 4242" required="" type="text" value="4242 •••• •••• 1089"/>
+                  <input class="atelier-input pr-24 font-mono" id="card-number" placeholder="4242 •••• •••• 4242" required="" type="text" value="4242 •••• •••• 1089"/>
                   <div class="absolute right-3 top-1/2 -translate-y-1/2 flex items-center gap-1 text-on-surface-variant">
                     <span class="font-label-uppercase text-[9px] border border-outline-variant px-1 bg-surface-container">VISA</span>
                     <span class="font-label-uppercase text-[9px] border border-outline-variant px-1 bg-surface-container">MC</span>
@@ -292,11 +315,11 @@
               <div class="grid grid-cols-2 gap-3">
                 <div>
                   <label class="atelier-label" for="card-exp">Expiration Date</label>
-                  <input class="atelier-input" id="card-exp" placeholder="MM / YY" required="" type="text" value="08 / 28"/>
+                  <input class="atelier-input font-mono" id="card-exp" placeholder="MM / YY" required="" type="text" value="08 / 28"/>
                 </div>
                 <div>
                   <label class="atelier-label" for="card-cvc">Security Code (CVC)</label>
-                  <input class="atelier-input" id="card-cvc" maxlength="4" placeholder="•••" required="" type="password" value="882"/>
+                  <input class="atelier-input font-mono" id="card-cvc" maxlength="4" placeholder="•••" required="" type="password" value="882"/>
                 </div>
               </div>
 
@@ -313,11 +336,18 @@
               </div>
             </div>
 
-            <!-- PayPal Container (hidden by default) -->
+            <!-- PayPal Container -->
             <div class="p-6 bg-surface border border-outline-variant text-center space-y-3" id="paypal-fields-container" style="display: none;">
               <span class="material-symbols-outlined text-3xl text-secondary">account_balance_wallet</span>
               <p class="font-body-md text-primary">You will be redirected to PayPal to complete your purchase securely.</p>
               <p class="font-body-sm text-secondary text-xs">Supports PayPal Credit and Pay in 4 installments.</p>
+            </div>
+
+            <!-- Klarna Container -->
+            <div class="p-6 bg-surface border border-outline-variant text-center space-y-3" id="klarna-fields-container" style="display: none;">
+              <span class="font-headline-sm font-bold text-primary tracking-tight">Klarna.</span>
+              <p class="font-body-md text-primary">Split into 3 interest-free payments or pay in 30 days.</p>
+              <p class="font-body-sm text-secondary text-xs">No hidden fees. Instant soft credit check.</p>
             </div>
           </fieldset>
 
@@ -356,20 +386,20 @@
           <!-- Summary Header -->
           <div class="flex items-baseline justify-between border-b border-outline-variant pb-4">
             <h2 class="font-headline-sm text-primary">Order Summary</h2>
-            <span class="font-label-uppercase text-secondary" id="checkout-items-count">2 Items</span>
+            <span class="font-label-uppercase text-secondary text-xs" id="checkout-items-count">2 Items</span>
           </div>
 
-          <!-- Line Items List (Dynamically populated from window.atelierStore) -->
+          <!-- Line Items List (Dynamically populated from window.atelierStore with WebP) -->
           <div class="space-y-4" id="checkout-items-list">
-            <!-- Fallback Static Items if JS disabled -->
+            <!-- Fallback Static Items if JS disabled with WebP assets -->
             <article class="flex gap-4 items-start group">
               <div class="w-20 h-[106px] flex-shrink-0 bg-surface border border-outline-variant overflow-hidden relative">
-                <img class="w-full h-full object-cover" src="Assets/Woman_wearing_tailored_blazer_2K_20261015150558.jpg" alt="The Double-Breasted Cashmere Trench"/>
+                <img class="w-full h-full object-cover" src="Assets/Woman_wearing_tailored_blazer_2K_20261015150558.webp" alt="The Double-Breasted Cashmere Trench"/>
                 <span class="absolute top-1 right-1 bg-primary text-on-primary font-label-uppercase text-[9px] w-4 h-4 flex items-center justify-center">1</span>
               </div>
               <div class="flex-grow flex flex-col justify-between h-[106px] py-0.5">
                 <div>
-                  <h3 class="font-body-md text-body-md font-medium text-primary leading-snug">The Double-Breasted Cashmere Trench</h3>
+                  <h3 class="font-body-md font-medium text-primary leading-snug">The Double-Breasted Cashmere Trench</h3>
                   <p class="font-body-sm text-secondary pt-0.5">Size M • Raw Ecru</p>
                   <p class="font-body-sm text-on-surface-variant">100% Mongolian Cashmere</p>
                 </div>
@@ -384,12 +414,12 @@
 
             <article class="flex gap-4 items-start group">
               <div class="w-20 h-[106px] flex-shrink-0 bg-surface border border-outline-variant overflow-hidden relative">
-                <img class="w-full h-full object-cover" src="Assets/Accessories_flat-lay_on_beige_su__2K_20261015150619.jpg" alt="Curated Leather Accessories"/>
+                <img class="w-full h-full object-cover" src="Assets/Accessories_flat-lay_on_beige_su__2K_20261015150619.webp" alt="Curated Leather Accessories"/>
                 <span class="absolute top-1 right-1 bg-primary text-on-primary font-label-uppercase text-[9px] w-4 h-4 flex items-center justify-center">1</span>
               </div>
               <div class="flex-grow flex flex-col justify-between h-[106px] py-0.5">
                 <div>
-                  <h3 class="font-body-md text-body-md font-medium text-primary leading-snug">Curated Leather Suite</h3>
+                  <h3 class="font-body-md font-medium text-primary leading-snug">Curated Leather Suite</h3>
                   <p class="font-body-sm text-secondary pt-0.5">One Size • Raw Umber</p>
                   <p class="font-body-sm text-on-surface-variant">Vegetable-Tanned Calfskin</p>
                 </div>
@@ -404,7 +434,7 @@
           <!-- Promo Code / Voucher Input -->
           <div class="pt-2 border-t border-outline-variant">
             <div class="flex gap-2">
-              <input class="atelier-input flex-grow h-11 uppercase" id="voucher-code-input" placeholder="Invitation or Courtesy Voucher" type="text"/>
+              <input class="atelier-input flex-grow h-11 uppercase" id="voucher-code-input" placeholder="Voucher (Try: AURELIA15)" type="text"/>
               <button class="btn-outline h-11 px-4 text-xs" onclick="applyVoucherCode()" type="button">
                 Apply
               </button>
@@ -429,7 +459,7 @@
 
             <div class="flex justify-between text-on-surface-variant">
               <span>Carbon-Neutral Ground Courier</span>
-              <span class="text-primary font-medium" id="checkout-shipping-val">Calculated Above</span>
+              <span class="text-primary font-medium" id="checkout-shipping-val">Free</span>
             </div>
 
             <div class="flex justify-between text-on-surface-variant">
@@ -451,7 +481,7 @@
 
           <!-- Atelier Guarantees Card -->
           <div class="p-4 bg-surface border border-outline-variant space-y-3">
-            <p class="font-label-uppercase text-primary border-b border-outline-variant pb-2">The Aurelia Atelier Promise</p>
+            <p class="font-label-uppercase text-primary border-b border-outline-variant pb-2 text-xs">The Aurelia Atelier Promise</p>
             <div class="flex items-start gap-3">
               <span class="material-symbols-outlined text-[18px] text-secondary mt-0.5">verified</span>
               <div>
@@ -502,7 +532,7 @@
         <span class="material-symbols-outlined text-3xl text-primary" style="font-variation-settings: 'FILL' 1;">check_circle</span>
       </div>
       
-      <span class="font-label-uppercase text-secondary tracking-widest block mb-2">TRANSACTION AUTHENTICATED</span>
+      <span class="font-label-uppercase text-secondary tracking-widest block mb-2 text-xs">TRANSACTION AUTHENTICATED</span>
       <h2 class="font-headline-lg text-primary font-serif mb-3">Order Confirmed</h2>
       <p class="font-body-md text-on-surface-variant mb-6">
         Thank you, Helena. Your bespoke garments have been scheduled for hand-pressing and cedar preparation at the Florentine atelier.
