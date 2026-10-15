@@ -1,0 +1,602 @@
+<!DOCTYPE html>
+<html class="scroll-smooth" lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <title>AURELIA | The Double-Breasted Cashmere Trench</title>
+  
+  <!-- Google Fonts: EB Garamond & Hanken Grotesk -->
+  <link href="https://fonts.googleapis.com" rel="preconnect"/>
+  <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+  <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400..600;1,400..500&amp;family=Hanken+Grotesk:wght@300;400;500;600&amp;display=swap" rel="stylesheet"/>
+  <!-- Material Symbols Outlined -->
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <script>
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            background: "#faf9f6",
+            surface: "#faf9f6",
+            "surface-dim": "#dbdad7",
+            "surface-container-low": "#f4f3f0",
+            "surface-container": "#efeeeb",
+            "surface-container-high": "#e9e8e5",
+            "surface-container-highest": "#e3e2e0",
+            primary: "#191817",
+            "on-primary": "#ffffff",
+            secondary: "#6c5b4d",
+            "on-surface": "#1a1c1a",
+            "on-surface-variant": "#4a4640",
+            outline: "#7b766f",
+            "outline-variant": "#ccc5bd"
+          },
+          fontFamily: {
+            serif: ["EB Garamond", "Georgia", "serif"],
+            sans: ["Hanken Grotesk", "sans-serif"]
+          }
+        }
+      }
+    };
+  </script>
+
+  <!-- Centralized Custom Stylesheet -->
+  <link rel="stylesheet" href="style.css"/>
+  <!-- Core Interaction Script -->
+  <script src="script.js" defer></script>
+</head>
+
+<body class="bg-surface text-on-surface antialiased selection:bg-secondary selection:text-surface min-h-screen flex flex-col justify-between">
+
+  <!-- TOP NAVBAR -->
+  <header class="atelier-header">
+    <div class="flex justify-between items-center w-full px-4 sm:px-8 lg:px-16 max-w-[1440px] mx-auto h-20">
+      
+      <!-- Brand Logo Anchor -->
+      <div class="flex items-center gap-10">
+        <!-- Mobile Menu Trigger -->
+        <button class="md:hidden flex items-center text-primary" onclick="openMobileMenu()" aria-label="Open navigation menu">
+          <span class="material-symbols-outlined text-[24px]">menu</span>
+        </button>
+
+        <a class="flex items-center gap-3.5 group" href="index.html">
+          <img src="Assets/logo.jpg" alt="Aurelia Atelier Emblem" class="w-9 h-9 object-cover border border-outline-variant group-hover:border-primary transition-colors"/>
+          <span class="font-headline-md tracking-tight uppercase text-primary font-serif">AURELIA</span>
+        </a>
+
+        <!-- Desktop Navigation Links -->
+        <nav class="hidden md:flex items-center gap-8 pt-1">
+          <a class="nav-link" href="index.html#collection">Collection</a>
+          <a class="nav-link active" href="product.html">The Cashmere Trench</a>
+          <a class="nav-link" href="index.html#editorial">Editorial</a>
+          <a class="nav-link" href="index.html#sustainability">Sustainability</a>
+          <a class="nav-link" href="index.html#about">About</a>
+        </nav>
+      </div>
+
+      <!-- Trailing Action Icons -->
+      <div class="flex items-center gap-5 sm:gap-6 text-primary">
+        <button aria-label="Search" class="hover:text-secondary transition-colors duration-150 flex items-center" onclick="openSearchModal()" type="button">
+          <span class="material-symbols-outlined text-[22px]">search</span>
+        </button>
+
+        <button aria-label="Wishlist" class="hover:text-secondary transition-colors duration-150 flex items-center relative" onclick="window.atelierStore.toggleWishlist('cashmere-trench-01', 'The Cashmere Trench')" type="button">
+          <span class="material-symbols-outlined text-[22px]">favorite</span>
+          <span class="wishlist-badge action-badge rounded-none">1</span>
+        </button>
+
+        <button aria-label="Shopping Bag" class="hover:text-secondary transition-colors duration-150 flex items-center relative" onclick="openCartDrawer()" type="button">
+          <span class="material-symbols-outlined text-[22px]">shopping_bag</span>
+          <span class="cart-badge action-badge rounded-none">2</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- MAIN PRODUCT CONTAINER -->
+  <main class="w-full max-w-[1440px] mx-auto px-4 sm:px-8 lg:px-16 py-6 flex-grow">
+    
+    <!-- Editorial Breadcrumb Trail -->
+    <nav aria-label="Breadcrumb" class="py-4 mb-6 border-b border-outline-variant">
+      <ol class="flex items-center space-x-3 font-label-uppercase text-on-surface-variant tracking-widest text-xs">
+        <li><a class="hover:text-primary transition-colors" href="index.html">Home</a></li>
+        <li><span class="text-outline-variant">/</span></li>
+        <li><a class="hover:text-primary transition-colors" href="index.html#collection">Collection</a></li>
+        <li><span class="text-outline-variant">/</span></li>
+        <li><a class="hover:text-primary transition-colors" href="index.html#collection">Outerwear</a></li>
+        <li><span class="text-outline-variant">/</span></li>
+        <li aria-current="page" class="text-primary font-semibold">The Double-Breasted Cashmere Trench</li>
+      </ol>
+    </nav>
+
+    <!-- Two-Column Product Layout -->
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 mt-6 mb-16 items-start">
+      
+      <!-- Left Column: Editorial Gallery Grid (7 Cols on Desktop) -->
+      <section class="lg:col-span-7 flex flex-col md:flex-row gap-6">
+        
+        <!-- Thumbnail Selector / Vertical Ribbon -->
+        <div class="hidden md:flex flex-col space-y-4 shrink-0 w-20">
+          <button class="thumb-btn border border-primary p-0.5 transition-all" onclick="focusImage(0)" type="button">
+            <div class="aspect-[3/4] bg-surface-container overflow-hidden">
+              <img class="w-full h-full object-cover" src="Assets/Woman_wearing_tailored_blazer_2K_20261015150558.jpg" alt="Front Drape Thumbnail"/>
+            </div>
+          </button>
+          <button class="thumb-btn border border-transparent hover:border-outline-variant p-0.5 transition-all" onclick="focusImage(1)" type="button">
+            <div class="aspect-[3/4] bg-surface-container overflow-hidden">
+              <img class="w-full h-full object-cover" src="Assets/Cotton_weave_fabric_texture_2K_20261015150511.jpg" alt="Fabric Weave Thumbnail"/>
+            </div>
+          </button>
+          <button class="thumb-btn border border-transparent hover:border-outline-variant p-0.5 transition-all" onclick="focusImage(2)" type="button">
+            <div class="aspect-[3/4] bg-surface-container overflow-hidden">
+              <img class="w-full h-full object-cover" src="Assets/Male_model_posing_in_jacket_2K_20261015150553.jpg" alt="Silhouette Thumbnail"/>
+            </div>
+          </button>
+          <button class="thumb-btn border border-transparent hover:border-outline-variant p-0.5 transition-all" onclick="focusImage(3)" type="button">
+            <div class="aspect-[3/4] bg-surface-container overflow-hidden">
+              <img class="w-full h-full object-cover" src="Assets/Models_wearing_minimalist_street__2K_20261015150536.jpg" alt="Ensemble Thumbnail"/>
+            </div>
+          </button>
+        </div>
+
+        <!-- Primary Image Gallery: 2x2 Editorial Staggered Lookbook Grid -->
+        <div class="flex-1 grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <!-- Image 1: Hero Front Drape -->
+          <div class="relative group aspect-[3/4] bg-surface-container overflow-hidden border border-outline-variant" id="gallery-img-0">
+            <span class="absolute top-3 left-3 z-10 bg-surface px-2.5 py-1 border border-outline-variant font-label-uppercase text-primary tracking-widest">
+              01 / FRONT DRAPE
+            </span>
+            <img class="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.02]" 
+                 src="Assets/Woman_wearing_tailored_blazer_2K_20261015150558.jpg" 
+                 alt="The Double-Breasted Cashmere Trench front view"/>
+            <button class="absolute bottom-3 right-3 bg-surface/90 backdrop-blur-sm p-2 border border-outline-variant text-primary hover:text-secondary opacity-0 group-hover:opacity-100 transition-opacity" 
+                    type="button" 
+                    onclick="openLightbox('Assets/Woman_wearing_tailored_blazer_2K_20261015150558.jpg', '01 / Front Drape — The Double-Breasted Cashmere Trench')">
+              <span class="material-symbols-outlined text-sm">fullscreen</span>
+            </button>
+          </div>
+
+          <!-- Image 2: Lapel & Weave Detail -->
+          <div class="relative group aspect-[3/4] bg-surface-container overflow-hidden border border-outline-variant" id="gallery-img-1">
+            <span class="absolute top-3 left-3 z-10 bg-surface px-2.5 py-1 border border-outline-variant font-label-uppercase text-primary tracking-widest">
+              02 / WEAVE &amp; DETAIL
+            </span>
+            <img class="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.02]" 
+                 src="Assets/Cotton_weave_fabric_texture_2K_20261015150511.jpg" 
+                 alt="Textile weave and tactile texture closeup"/>
+            <button class="absolute bottom-3 right-3 bg-surface/90 backdrop-blur-sm p-2 border border-outline-variant text-primary hover:text-secondary opacity-0 group-hover:opacity-100 transition-opacity" 
+                    type="button" 
+                    onclick="openLightbox('Assets/Cotton_weave_fabric_texture_2K_20261015150511.jpg', '02 / Pure Mongolian Cashmere & Botanical Weave Detail')">
+              <span class="material-symbols-outlined text-sm">fullscreen</span>
+            </button>
+          </div>
+
+          <!-- Image 3: Silhouette & Stride -->
+          <div class="relative group aspect-[3/4] bg-surface-container overflow-hidden border border-outline-variant" id="gallery-img-2">
+            <span class="absolute top-3 left-3 z-10 bg-surface px-2.5 py-1 border border-outline-variant font-label-uppercase text-primary tracking-widest">
+              03 / SILHOUETTE
+            </span>
+            <img class="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.02]" 
+                 src="Assets/Male_model_posing_in_jacket_2K_20261015150553.jpg" 
+                 alt="Architectural structure profile perspective"/>
+            <button class="absolute bottom-3 right-3 bg-surface/90 backdrop-blur-sm p-2 border border-outline-variant text-primary hover:text-secondary opacity-0 group-hover:opacity-100 transition-opacity" 
+                    type="button" 
+                    onclick="openLightbox('Assets/Male_model_posing_in_jacket_2K_20261015150553.jpg', '03 / Architectural Drape & Tailored Geometry')">
+              <span class="material-symbols-outlined text-sm">fullscreen</span>
+            </button>
+          </div>
+
+          <!-- Image 4: Ensemble Lookbook -->
+          <div class="relative group aspect-[3/4] bg-surface-container overflow-hidden border border-outline-variant" id="gallery-img-3">
+            <span class="absolute top-3 left-3 z-10 bg-surface px-2.5 py-1 border border-outline-variant font-label-uppercase text-primary tracking-widest">
+              04 / EDITORIAL CAPSULE
+            </span>
+            <img class="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.02]" 
+                 src="Assets/Models_wearing_minimalist_street__2K_20261015150536.jpg" 
+                 alt="Editorial capsule lookbook"/>
+            <button class="absolute bottom-3 right-3 bg-surface/90 backdrop-blur-sm p-2 border border-outline-variant text-primary hover:text-secondary opacity-0 group-hover:opacity-100 transition-opacity" 
+                    type="button" 
+                    onclick="openLightbox('Assets/Models_wearing_minimalist_street__2K_20261015150536.jpg', '04 / Autumn Capsule Lookbook')">
+              <span class="material-symbols-outlined text-sm">fullscreen</span>
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <!-- Right Column: Sticky Editorial Buy-Box (5 Cols on Desktop) -->
+      <aside class="lg:col-span-5 sticky top-28 space-y-6 pt-2 lg:pl-4">
+        
+        <!-- Header Info & Badge -->
+        <div class="space-y-3 pb-5 border-b border-outline-variant">
+          <div class="flex items-center justify-between">
+            <span class="inline-block px-2.5 py-0.5 border border-outline font-label-uppercase tracking-widest text-on-surface bg-surface-container-low">
+              EDITION OF 150
+            </span>
+            <span class="font-label-uppercase tracking-widest text-secondary">
+              ARTISAN ARCHIVE N° 08
+            </span>
+          </div>
+          <h1 class="font-headline-lg text-primary tracking-tight font-serif">
+            The Double-Breasted Cashmere Trench
+          </h1>
+          <div class="flex items-baseline space-x-3 pt-1">
+            <span class="font-body-lg text-primary font-semibold text-xl">€1,280.00</span>
+            <span class="font-body-sm text-secondary">Complimentary Global Courier</span>
+          </div>
+        </div>
+
+        <!-- Colorway Selector -->
+        <div class="space-y-3">
+          <div class="flex justify-between items-center font-label-uppercase">
+            <span class="tracking-widest text-primary">COLORWAY: <span class="text-secondary font-normal" id="selected-color">Raw Ecru</span></span>
+          </div>
+          <div aria-label="Color Selection" class="flex items-center space-x-3" role="radiogroup">
+            <!-- Raw Ecru (Selected) -->
+            <button aria-checked="true" aria-label="Raw Ecru" class="color-swatch-btn w-9 h-9 p-0.5 border-2 border-primary focus:outline-none" onclick="selectColor(this, 'Raw Ecru')" type="button">
+              <span class="block w-full h-full bg-[#EDE8E0] border border-outline-variant"></span>
+            </button>
+            <!-- Deep Espresso -->
+            <button aria-checked="false" aria-label="Deep Espresso" class="color-swatch-btn w-9 h-9 p-0.5 border border-outline-variant hover:border-outline focus:outline-none transition-colors" onclick="selectColor(this, 'Deep Espresso')" type="button">
+              <span class="block w-full h-full bg-[#2A231F] border border-outline-variant"></span>
+            </button>
+            <!-- Charcoal Melange -->
+            <button aria-checked="false" aria-label="Charcoal Melange" class="color-swatch-btn w-9 h-9 p-0.5 border border-outline-variant hover:border-outline focus:outline-none transition-colors" onclick="selectColor(this, 'Charcoal Melange')" type="button">
+              <span class="block w-full h-full bg-[#42413E] border border-outline-variant"></span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Sizing Selector & Sizing Guide Modal Link -->
+        <div class="space-y-3 pt-2">
+          <div class="flex justify-between items-center font-label-uppercase">
+            <span class="tracking-widest text-primary">SELECT SIZE</span>
+            <button class="text-secondary hover:text-primary tracking-widest underline underline-offset-4 flex items-center space-x-1" onclick="openSizeGuide()" type="button">
+              <span class="material-symbols-outlined text-[14px]">straighten</span>
+              <span>Size Guide</span>
+            </button>
+          </div>
+          
+          <!-- Rectilinear Architecture Size Grid -->
+          <div aria-label="Size Selection" class="grid grid-cols-5 gap-2" role="radiogroup">
+            <button class="size-btn h-12 border border-outline-variant hover:border-primary font-label-uppercase transition-all text-on-surface" onclick="selectSize(this, 'XS')" type="button">XS</button>
+            <button class="size-btn h-12 border border-outline-variant hover:border-primary font-label-uppercase transition-all text-on-surface" onclick="selectSize(this, 'S')" type="button">S</button>
+            <button aria-checked="true" class="size-btn h-12 border-2 border-primary bg-primary text-surface font-label-uppercase transition-all font-semibold" onclick="selectSize(this, 'M')" type="button">M</button>
+            <button class="size-btn h-12 border border-outline-variant hover:border-primary font-label-uppercase transition-all text-on-surface" onclick="selectSize(this, 'L')" type="button">L</button>
+            <button class="size-btn h-12 border border-outline-variant hover:border-primary font-label-uppercase transition-all text-on-surface" onclick="selectSize(this, 'XL')" type="button">XL</button>
+          </div>
+          
+          <!-- Stock Alert -->
+          <div class="flex items-center space-x-2 pt-1 text-secondary">
+            <span class="w-1.5 h-1.5 rounded-full bg-secondary"></span>
+            <span class="font-body-sm italic">Only 3 remaining in size M</span>
+          </div>
+        </div>
+
+        <!-- Primary CTA Buttons -->
+        <div class="space-y-3 pt-2">
+          <button class="w-full btn-primary" onclick="addCurrentProductToBag()" type="button">
+            <span class="material-symbols-outlined text-lg">shopping_bag</span>
+            <span>Add to Bag — €1,280.00</span>
+          </button>
+          
+          <button class="w-full btn-outline" onclick="window.atelierStore.toggleWishlist('cashmere-trench-01', 'The Cashmere Trench')" type="button">
+            <span class="material-symbols-outlined text-lg">favorite</span>
+            <span>Save to Wishlist</span>
+          </button>
+        </div>
+
+        <!-- Key Highlights Specs -->
+        <div class="grid grid-cols-3 gap-2 py-4 border-y border-outline-variant">
+          <div class="text-center px-1">
+            <span class="block font-label-uppercase text-on-surface-variant tracking-wider">FIBER</span>
+            <span class="block font-body-sm font-medium text-primary mt-0.5">100% Cashmere</span>
+          </div>
+          <div class="text-center px-1 border-x border-outline-variant">
+            <span class="block font-label-uppercase text-on-surface-variant tracking-wider">ORIGIN</span>
+            <span class="block font-body-sm font-medium text-primary mt-0.5">Biella &amp; Florence</span>
+          </div>
+          <div class="text-center px-1">
+            <span class="block font-label-uppercase text-on-surface-variant tracking-wider">FIT</span>
+            <span class="block font-body-sm font-medium text-primary mt-0.5">Tailored Drape</span>
+          </div>
+        </div>
+
+        <!-- Expandable Accordion Drawers -->
+        <div class="space-y-0 divide-y divide-outline-variant font-body-md">
+          <!-- Accordion 1: Details -->
+          <div class="py-3">
+            <button class="w-full flex justify-between items-center text-left group" onclick="toggleAccordion('drawer-details')" type="button">
+              <span class="font-headline-sm text-primary">Garment Details</span>
+              <span class="font-body-lg text-primary transition-transform duration-200 group-hover:text-secondary" id="icon-drawer-details">—</span>
+            </button>
+            <div class="pt-3 pb-2 space-y-1 text-on-surface-variant font-body-sm" id="drawer-details">
+              <ul class="list-disc pl-4 space-y-1 text-on-surface">
+                <li>Double-breasted closure with genuine horn buttons</li>
+                <li>Unlined drape with silk-organza bound interior seams</li>
+                <li>Length: 122 cm (Size M center back neck to hem)</li>
+                <li>Matching belt with hand-stitched bar tacks</li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- Accordion 2: Care -->
+          <div class="py-3">
+            <button class="w-full flex justify-between items-center text-left group" onclick="toggleAccordion('drawer-provenance')" type="button">
+              <span class="font-headline-sm text-primary">Fiber &amp; Care</span>
+              <span class="font-body-lg text-primary transition-transform duration-200 group-hover:text-secondary" id="icon-drawer-provenance">+</span>
+            </button>
+            <div class="hidden pt-3 pb-2 space-y-1 text-on-surface-variant font-body-sm" id="drawer-provenance">
+              <ul class="list-disc pl-4 space-y-1 text-on-surface">
+                <li>100% sustainable Mongolian pure cashmere</li>
+                <li>Spun and finished in Biella, Italy</li>
+                <li>Dry clean only (eco-solvent)</li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- Accordion 3: Delivery -->
+          <div class="py-3">
+            <button class="w-full flex justify-between items-center text-left group" onclick="toggleAccordion('drawer-delivery')" type="button">
+              <span class="font-headline-sm text-primary">Delivery &amp; Returns</span>
+              <span class="font-body-lg text-primary transition-transform duration-200 group-hover:text-secondary" id="icon-drawer-delivery">+</span>
+            </button>
+            <div class="hidden pt-3 pb-2 space-y-1 text-on-surface-variant font-body-sm" id="drawer-delivery">
+              <ul class="list-disc pl-4 space-y-1 text-on-surface">
+                <li>Free carbon-neutral DHL Express delivery (3–5 business days)</li>
+                <li>Complimentary 30-day doorstep return service</li>
+                <li>Delivered in custom archival cedar garment bag</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </aside>
+    </div>
+
+    <!-- Complete The Look / Editorial Pairing Section -->
+    <section class="mt-20 pt-12 border-t border-outline-variant">
+      <div class="flex flex-col md:flex-row md:items-end justify-between mb-8">
+        <div>
+          <span class="font-label-uppercase tracking-widest text-secondary block mb-1">CURATED WARDROBE</span>
+          <h2 class="font-headline-md text-primary">Complete The Look</h2>
+        </div>
+        <a class="btn-ghost-link mt-2 md:mt-0" href="index.html#collection">
+          View Autumn Capsule →
+        </a>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
+        
+        <!-- Look Item 1: Structured Melton Jacket -->
+        <article class="product-card group">
+          <div class="product-media">
+            <span class="product-badge">VIRGIN WOOL</span>
+            <img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" 
+                 src="Assets/Male_model_posing_in_jacket_2K_20261015150553.jpg" 
+                 alt="The Structured Melton Jacket"/>
+            <button class="quick-add-btn" type="button" onclick="window.atelierStore.addToCart({id:'melton-jacket-03', title:'The Structured Melton Jacket', price:1140.00, size:'48', color:'Carbon Black', image:'Assets/Male_model_posing_in_jacket_2K_20261015150553.jpg', material:'Heavy Melton Wool'})">
+              Quick Add — €1,140
+            </button>
+          </div>
+          <div class="pt-4 flex justify-between items-baseline">
+            <div>
+              <h3 class="font-body-md text-primary font-medium">The Structured Melton Jacket</h3>
+              <p class="font-body-sm text-secondary">Pure Virgin Wool Gabardine</p>
+            </div>
+            <span class="font-body-md text-primary font-semibold">€1,140</span>
+          </div>
+        </article>
+
+        <!-- Look Item 2: Curated Leather Accessories -->
+        <article class="product-card group">
+          <div class="product-media">
+            <span class="product-badge">HAND-CRAFTED</span>
+            <img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" 
+                 src="Assets/Accessories_flat-lay_on_beige_su__2K_20261015150619.jpg" 
+                 alt="Artisanal Leather Flat-Lay Suite"/>
+            <button class="quick-add-btn" type="button" onclick="window.atelierStore.addToCart({id:'flatlay-acc-04', title:'Artisanal Leather Flat-Lay', price:420.00, size:'OS', color:'Natural Umber', image:'Assets/Accessories_flat-lay_on_beige_su__2K_20261015150619.jpg', material:'Vegetable-Tanned Calfskin'})">
+              Quick Add — €420
+            </button>
+          </div>
+          <div class="pt-4 flex justify-between items-baseline">
+            <div>
+              <h3 class="font-body-md text-primary font-medium">Curated Leather Suite</h3>
+              <p class="font-body-sm text-secondary">Vegetable-Tanned Calfskin</p>
+            </div>
+            <span class="font-body-md text-primary font-semibold">€420</span>
+          </div>
+        </article>
+
+        <!-- Look Item 3: Streetwear Ensemble -->
+        <article class="product-card group">
+          <div class="product-media">
+            <span class="product-badge">CAPSULE PIECE</span>
+            <img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" 
+                 src="Assets/Models_wearing_minimalist_street__2K_20261015150536.jpg" 
+                 alt="Minimalist Atelier Suit"/>
+            <button class="quick-add-btn" type="button" onclick="window.atelierStore.addToCart({id:'minimal-suit-02', title:'Architectural Minimalist Suit', price:980.00, size:'40', color:'Parchment', image:'Assets/Models_wearing_minimalist_street__2K_20261015150536.jpg', material:'Biella Virgin Wool'})">
+              Quick Add — €980
+            </button>
+          </div>
+          <div class="pt-4 flex justify-between items-baseline">
+            <div>
+              <h3 class="font-body-md text-primary font-medium">Minimalist Atelier Suit</h3>
+              <p class="font-body-sm text-secondary">Double-Faced Wool Crepe</p>
+            </div>
+            <span class="font-body-md text-primary font-semibold">€980</span>
+          </div>
+        </article>
+      </div>
+    </section>
+  </main>
+
+  <!-- SHARED FOOTER -->
+  <footer class="bg-surface-container-low border-t border-outline-variant mt-20">
+    <div class="w-full px-4 sm:px-8 lg:px-16 py-12 max-w-[1440px] mx-auto flex flex-col md:flex-row justify-between items-center gap-6">
+      <div class="flex items-center gap-3">
+        <img src="Assets/logo.jpg" alt="Aurelia Emblem" class="w-8 h-8 object-cover border border-outline-variant"/>
+        <span class="font-headline-sm uppercase tracking-tight text-primary font-serif">AURELIA</span>
+        <span class="text-outline-variant">|</span>
+        <p class="font-body-sm text-on-surface-variant">© 2025 Aurelia Atelier. Crafted with discerning permanence.</p>
+      </div>
+      <div class="flex items-center gap-6 text-xs font-label-uppercase text-secondary">
+        <a href="index.html" class="hover:text-primary">Home</a>
+        <a href="index.html#collection" class="hover:text-primary">Collections</a>
+        <a href="checkout.html" class="hover:text-primary">Checkout</a>
+        <span>STOCKHOLM · COPENHAGEN · MILAN</span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- SIZE GUIDE MODAL -->
+  <div class="atelier-modal-overlay" id="size-guide-modal" onclick="if(event.target === this) closeSizeGuide()">
+    <div class="atelier-modal-content">
+      <div class="flex justify-between items-center pb-4 border-b border-outline-variant mb-6">
+        <h3 class="font-headline-sm text-primary">Atelier Sizing Architecture</h3>
+        <button onclick="closeSizeGuide()" class="text-primary hover:text-secondary">
+          <span class="material-symbols-outlined text-[20px]">close</span>
+        </button>
+      </div>
+      
+      <p class="font-body-md text-on-surface-variant mb-6">
+        Our garments are tailored for an architectural silhouette with generous drape. If you prefer a closer bespoke fit, we recommend taking one size down.
+      </p>
+
+      <div class="overflow-x-auto border border-outline-variant mb-6">
+        <table class="w-full text-left font-body-sm">
+          <thead class="bg-surface-container border-b border-outline-variant font-label-uppercase text-[10px]">
+            <tr>
+              <th class="p-3">Proportion</th>
+              <th class="p-3">EU</th>
+              <th class="p-3">US / UK</th>
+              <th class="p-3">Chest (cm)</th>
+              <th class="p-3">Length (cm)</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-outline-variant">
+            <tr><td class="p-3 font-semibold">XS</td><td class="p-3">44</td><td class="p-3">34</td><td class="p-3">92</td><td class="p-3">118</td></tr>
+            <tr><td class="p-3 font-semibold">S</td><td class="p-3">46</td><td class="p-3">36</td><td class="p-3">98</td><td class="p-3">120</td></tr>
+            <tr class="bg-surface-container-low font-medium"><td class="p-3 font-bold text-primary">M (Model)</td><td class="p-3">48</td><td class="p-3">38</td><td class="p-3">104</td><td class="p-3">122</td></tr>
+            <tr><td class="p-3 font-semibold">L</td><td class="p-3">50</td><td class="p-3">40</td><td class="p-3">110</td><td class="p-3">124</td></tr>
+            <tr><td class="p-3 font-semibold">XL</td><td class="p-3">52</td><td class="p-3">42</td><td class="p-3">116</td><td class="p-3">126</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="flex justify-between items-center pt-2">
+        <span class="font-body-sm text-secondary">Need bespoke sizing guidance?</span>
+        <button class="btn-outline" onclick="closeSizeGuide(); showToast('Concierge Inquiry', 'An atelier specialist has been notified.', 'support_agent')">
+          Consult Atelier Stylist
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- LIGHTBOX IMAGE ZOOM MODAL -->
+  <div class="atelier-modal-overlay" id="lightbox-modal" onclick="if(event.target === this) closeLightbox()">
+    <div class="relative max-w-4xl max-h-[90vh] bg-surface border border-outline-variant p-4">
+      <button onclick="closeLightbox()" class="absolute top-4 right-4 z-20 bg-surface/90 border border-outline-variant p-2 text-primary hover:text-secondary">
+        <span class="material-symbols-outlined text-[20px]">close</span>
+      </button>
+      <div class="aspect-[3/4] max-h-[75vh] overflow-hidden bg-surface-container">
+        <img id="lightbox-image" src="" alt="High resolution inspection" class="w-full h-full object-contain"/>
+      </div>
+      <p id="lightbox-caption" class="font-label-uppercase text-secondary text-center pt-4 tracking-wider"></p>
+    </div>
+  </div>
+
+  <!-- CART DRAWER OVERLAY & SLIDING DRAWER -->
+  <div class="drawer-backdrop" id="cart-backdrop" onclick="closeCartDrawer()"></div>
+  <aside class="cart-drawer" id="cart-drawer" aria-label="Shopping Cart">
+    <div class="cart-drawer-header">
+      <div class="flex items-center gap-2">
+        <span class="material-symbols-outlined text-primary">shopping_bag</span>
+        <h3 class="font-headline-sm text-primary">Atelier Bag</h3>
+      </div>
+      <button onclick="closeCartDrawer()" class="text-primary hover:text-secondary p-1" aria-label="Close bag">
+        <span class="material-symbols-outlined text-[22px]">close</span>
+      </button>
+    </div>
+
+    <div class="cart-drawer-body" id="cart-drawer-items"></div>
+
+    <div class="cart-drawer-footer">
+      <div class="flex justify-between items-baseline mb-4">
+        <span class="font-label-uppercase text-on-surface-variant">SUBTOTAL</span>
+        <span class="font-headline-sm text-primary font-medium" id="cart-drawer-subtotal">€0.00</span>
+      </div>
+      <p class="font-body-sm text-secondary text-xs mb-4">Taxes and carbon-neutral courier calculated at checkout.</p>
+      <a href="checkout.html" class="btn-primary w-full text-center">
+        Proceed to Checkout
+      </a>
+      <button onclick="closeCartDrawer()" class="w-full text-center font-label-uppercase text-[10px] text-secondary hover:text-primary mt-3 tracking-widest" type="button">
+        Continue Browsing
+      </button>
+    </div>
+  </aside>
+
+  <!-- MOBILE NAVIGATION DRAWER -->
+  <div class="drawer-backdrop" id="mobile-nav-backdrop" onclick="closeMobileMenu()"></div>
+  <aside class="mobile-nav-drawer p-6 flex flex-col justify-between" id="mobile-nav-drawer">
+    <div>
+      <div class="flex items-center justify-between pb-6 border-b border-outline-variant mb-6">
+        <div class="flex items-center gap-3">
+          <img src="Assets/logo.jpg" alt="Aurelia Emblem" class="w-8 h-8 object-cover border border-outline-variant"/>
+          <span class="font-headline-md text-primary font-serif">AURELIA</span>
+        </div>
+        <button onclick="closeMobileMenu()" class="text-primary hover:text-secondary">
+          <span class="material-symbols-outlined text-[22px]">close</span>
+        </button>
+      </div>
+
+      <nav class="flex flex-col space-y-5">
+        <a href="index.html" onclick="closeMobileMenu()" class="font-headline-sm text-primary hover:text-secondary">Home</a>
+        <a href="index.html#collection" onclick="closeMobileMenu()" class="font-headline-sm text-primary hover:text-secondary">Collection</a>
+        <a href="product.html" onclick="closeMobileMenu()" class="font-headline-sm text-primary hover:text-secondary">The Cashmere Trench (Active)</a>
+        <a href="checkout.html" onclick="closeMobileMenu()" class="font-headline-sm text-primary hover:text-secondary">Secure Checkout</a>
+        <a href="index.html#sustainability" onclick="closeMobileMenu()" class="font-headline-sm text-primary hover:text-secondary">Sustainability Charter</a>
+      </nav>
+    </div>
+
+    <div class="pt-6 border-t border-outline-variant space-y-3">
+      <a href="checkout.html" class="btn-primary w-full text-center">View Bag &amp; Checkout</a>
+      <p class="font-label-uppercase text-[10px] text-center text-secondary tracking-widest">STOCKHOLM · COPENHAGEN · MILAN</p>
+    </div>
+  </aside>
+
+  <!-- SEARCH MODAL OVERLAY -->
+  <div class="atelier-modal-overlay" id="search-modal" onclick="if(event.target === this) closeSearchModal()">
+    <div class="atelier-modal-content">
+      <div class="flex justify-between items-center pb-4 border-b border-outline-variant mb-6">
+        <h3 class="font-headline-sm text-primary">Search Archive</h3>
+        <button onclick="closeSearchModal()" class="text-primary hover:text-secondary">
+          <span class="material-symbols-outlined text-[20px]">close</span>
+        </button>
+      </div>
+
+      <div class="relative mb-6">
+        <input type="text" id="search-modal-input" class="atelier-input pl-10" placeholder="Search silhouettes, coats, cashmere, wool..."/>
+        <span class="material-symbols-outlined text-outline absolute left-3 top-1/2 -translate-y-1/2 text-[18px]">search</span>
+      </div>
+
+      <div class="space-y-4">
+        <span class="font-label-uppercase text-secondary tracking-widest block">CURATED ARCHIVES</span>
+        <div class="grid grid-cols-2 gap-3">
+          <a href="product.html" class="p-3 bg-surface-container-low border border-outline-variant hover:border-primary block">
+            <p class="font-body-md text-primary font-medium">Cashmere Trench Coat</p>
+            <span class="font-body-sm text-secondary">Outerwear • €1,280</span>
+          </a>
+          <a href="product.html" class="p-3 bg-surface-container-low border border-outline-variant hover:border-primary block">
+            <p class="font-body-md text-primary font-medium">Structured Melton Jacket</p>
+            <span class="font-body-sm text-secondary">Menswear • €1,140</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</body>
+</html>
