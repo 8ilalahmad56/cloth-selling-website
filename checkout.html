@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html class="scroll-smooth" lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <title>AURELIA ATELIER — Secure Checkout</title>
+  
+  <!-- Google Fonts: EB Garamond & Hanken Grotesk -->
+  <link href="https://fonts.googleapis.com" rel="preconnect"/>
+  <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+  <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400..700;1,400..700&amp;family=Hanken+Grotesk:ital,wght@0,100..900;1,100..900&amp;display=swap" rel="stylesheet"/>
+  <!-- Material Symbols Outlined -->
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <script>
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            background: "#faf9f6",
+            surface: "#faf9f6",
+            "surface-dim": "#dbdad7",
+            "surface-container-low": "#f4f3f0",
+            "surface-container": "#efeeeb",
+            "surface-container-high": "#e9e8e5",
+            "surface-container-highest": "#e3e2e0",
+            primary: "#191817",
+            "on-primary": "#ffffff",
+            secondary: "#6c5b4d",
+            "on-surface": "#1a1c1a",
+            "on-surface-variant": "#4a4640",
+            outline: "#7b766f",
+            "outline-variant": "#ccc5bd"
+          },
+          fontFamily: {
+            serif: ["EB Garamond", "Georgia", "serif"],
+            sans: ["Hanken Grotesk", "sans-serif"]
+          }
+        }
+      }
+    };
+  </script>
+
+  <!-- Centralized Custom Stylesheet -->
+  <link rel="stylesheet" href="style.css"/>
+  <!-- Core Interaction Script -->
+  <script src="script.js" defer></script>
+</head>
+
+<body class="bg-background text-on-surface antialiased selection:bg-secondary selection:text-surface min-h-screen flex flex-col justify-between">
+
+  <!-- MINIMALIST SECURE CHECKOUT HEADER -->
+  <header class="w-full bg-surface border-b border-outline-variant sticky top-0 z-40">
+    <div class="max-w-[1440px] mx-auto px-4 sm:px-8 lg:px-16 h-20 flex items-center justify-between">
+      
+      <!-- Return to Product / Bag -->
+      <a class="inline-flex items-center gap-2 font-label-uppercase text-on-surface-variant hover:text-primary transition-colors group" href="product.html">
+        <span class="material-symbols-outlined text-[16px] transition-transform group-hover:-translate-x-1">arrow_back</span>
+        <span>Return to Selection</span>
+      </a>
+
+      <!-- Brand Identity Anchor with Logo -->
+      <a class="flex items-center gap-3 group" href="index.html">
+        <img src="Assets/logo.jpg" alt="Aurelia Emblem" class="w-8 h-8 object-cover border border-outline-variant group-hover:border-primary transition-colors"/>
+        <span class="font-headline-md tracking-tight uppercase text-primary font-serif">AURELIA</span>
+      </a>
+
+      <!-- Security Assurance Badge -->
+      <div class="inline-flex items-center gap-1.5 px-3 py-1 bg-surface-container border border-outline-variant text-on-surface-variant">
+        <span class="material-symbols-outlined text-[15px] text-primary" style="font-variation-settings: 'FILL' 1;">lock</span>
+        <span class="font-label-uppercase tracking-widest text-[10px]">256-Bit Encrypted</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- MAIN CHECKOUT CONTENT CANVAS -->
+  <main class="flex-grow max-w-[1440px] mx-auto w-full px-4 sm:px-8 lg:px-16 py-10">
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start">
+      
+      <!-- LEFT COLUMN: Checkout Form Steps (7 Columns) -->
+      <section class="lg:col-span-7 space-y-10 pr-0 lg:pr-6">
+        
+        <!-- Express Payment Anchor -->
+        <div class="space-y-4">
+          <div class="flex items-center justify-between">
+            <span class="font-label-uppercase text-on-surface-variant">Instant Express Checkout</span>
+            <span class="font-label-uppercase text-secondary">Biometric &amp; Encrypted</span>
+          </div>
+          
+          <div class="grid grid-cols-3 gap-3">
+            <!-- Apple Pay -->
+            <button aria-label="Express checkout with Apple Pay" class="h-[48px] bg-primary text-on-primary flex items-center justify-center hover:bg-secondary transition-colors duration-200" type="button" onclick="showToast('Apple Pay', 'Connecting to Apple Pay secure wallet...', 'phone_iphone')">
+              <span class="font-body-md font-medium tracking-tight text-[15px] flex items-center gap-1.5">
+                <span class="material-symbols-outlined text-[18px]">phone_iphone</span> Apple Pay
+              </span>
+            </button>
+
+            <!-- Google Pay -->
+            <button aria-label="Express checkout with Google Pay" class="h-[48px] bg-surface-container-highest border border-outline-variant text-on-surface flex items-center justify-center hover:bg-surface-dim transition-colors duration-200" type="button" onclick="showToast('Google Pay', 'Connecting to Google Pay secure wallet...', 'account_balance_wallet')">
+              <span class="font-body-md font-medium tracking-tight text-[15px] flex items-center gap-1.5">
+                <span class="font-serif italic font-bold">G</span> Pay
+              </span>
+            </button>
+
+            <!-- Shop Pay -->
+            <button aria-label="Express checkout with Shop Pay" class="h-[48px] bg-[#5A31F4] text-white flex items-center justify-center hover:opacity-90 transition-opacity duration-200" type="button" onclick="showToast('Shop Pay', 'Connecting to Shop Pay secure checkout...', 'shopping_bag')">
+              <span class="font-body-md font-medium tracking-tight text-[15px]">shop<span class="font-bold">Pay</span></span>
+            </button>
+          </div>
+
+          <div class="relative flex items-center justify-center py-2">
+            <div class="w-full border-t border-outline-variant"></div>
+            <span class="absolute bg-background px-4 font-label-uppercase text-on-surface-variant text-[10px]">or continue with standard checkout</span>
+          </div>
+        </div>
+
+        <!-- FORM FUNNEL -->
+        <form class="space-y-10" id="checkout-form" onsubmit="handleCheckoutSubmit(event)">
+          
+          <!-- STEP 1: Contact Information -->
+          <fieldset class="space-y-4">
+            <div class="flex items-center justify-between pb-2 border-b border-outline-variant">
+              <div class="flex items-center gap-3">
+                <span class="w-6 h-6 rounded-none bg-primary text-on-primary flex items-center justify-center font-label-uppercase text-[11px]">1</span>
+                <legend class="font-headline-sm text-primary">Contact Information</legend>
+              </div>
+              <span class="font-body-sm text-on-surface-variant">Client Concierge Profile? <a class="underline underline-offset-4 text-primary hover:text-secondary" href="javascript:showToast('Atelier Sign In', 'Opening client authentication...', 'login')">Sign in</a></span>
+            </div>
+            
+            <div class="space-y-3 pt-2">
+              <div>
+                <label class="atelier-label" for="contact-email">Email Address</label>
+                <input class="atelier-input" id="contact-email" required="" type="email" value="helena.v@atelier-copenhagen.dk"/>
+              </div>
+              <div>
+                <label class="atelier-label" for="contact-phone">Mobile Phone (for delivery dispatch notifications)</label>
+                <input class="atelier-input" id="contact-phone" placeholder="+45 31 49 82 00" type="tel"/>
+              </div>
+              <div class="pt-1 flex items-start gap-2.5">
+                <input checked="" class="mt-1 w-4 h-4 rounded-none border border-outline-variant text-primary focus:ring-0 bg-surface" id="newsletter" type="checkbox"/>
+                <label class="font-body-sm text-on-surface-variant cursor-pointer select-none" for="newsletter">
+                  Receive our private seasonal portfolios, atelier monographs, and bespoke fabric release invitations.
+                </label>
+              </div>
+            </div>
+          </fieldset>
+
+          <!-- STEP 2: Shipping Destination -->
+          <fieldset class="space-y-4">
+            <div class="flex items-center justify-between pb-2 border-b border-outline-variant">
+              <div class="flex items-center gap-3">
+                <span class="w-6 h-6 rounded-none bg-primary text-on-primary flex items-center justify-center font-label-uppercase text-[11px]">2</span>
+                <legend class="font-headline-sm text-primary">Shipping Address</legend>
+              </div>
+              <span class="font-label-uppercase text-secondary">Global Courier Available</span>
+            </div>
+            
+            <div class="space-y-3 pt-2">
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+                <div>
+                  <label class="atelier-label" for="first-name">First Name</label>
+                  <input class="atelier-input" id="first-name" required="" type="text" value="Helena"/>
+                </div>
+                <div>
+                  <label class="atelier-label" for="last-name">Last Name</label>
+                  <input class="atelier-input" id="last-name" required="" type="text" value="Vestergaard"/>
+                </div>
+              </div>
+              <div>
+                <label class="atelier-label" for="address-line1">Street Address</label>
+                <input class="atelier-input" id="address-line1" required="" type="text" value="Bredgade 34A, 3. sal"/>
+              </div>
+              <div>
+                <label class="atelier-label" for="address-line2">Apartment, Studio, or Suite (Optional)</label>
+                <input class="atelier-input" id="address-line2" placeholder="e.g. Studio 4B" type="text"/>
+              </div>
+              <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
+                <div>
+                  <label class="atelier-label" for="city">City</label>
+                  <input class="atelier-input" id="city" required="" type="text" value="Copenhagen"/>
+                </div>
+                <div>
+                  <label class="atelier-label" for="postal-code">Postal Code</label>
+                  <input class="atelier-input" id="postal-code" required="" type="text" value="1260"/>
+                </div>
+                <div>
+                  <label class="atelier-label" for="country">Country / Region</label>
+                  <select class="atelier-select" id="country">
+                    <option selected="" value="DK">Denmark</option>
+                    <option value="SE">Sweden</option>
+                    <option value="NO">Norway</option>
+                    <option value="DE">Germany</option>
+                    <option value="FR">France</option>
+                    <option value="GB">United Kingdom</option>
+                    <option value="US">United States</option>
+                    <option value="JP">Japan</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+          </fieldset>
+
+          <!-- STEP 3: Shipping Method -->
+          <fieldset class="space-y-4">
+            <div class="flex items-center justify-between pb-2 border-b border-outline-variant">
+              <div class="flex items-center gap-3">
+                <span class="w-6 h-6 rounded-none bg-primary text-on-primary flex items-center justify-center font-label-uppercase text-[11px]">3</span>
+                <legend class="font-headline-sm text-primary">Shipping Method</legend>
+              </div>
+              <span class="font-body-sm text-secondary">Carbon-Neutral</span>
+            </div>
+
+            <div class="space-y-2 pt-2">
+              <!-- Method 1: Complimentary -->
+              <label class="relative flex items-center justify-between p-4 border border-primary bg-surface cursor-pointer">
+                <div class="flex items-start gap-3">
+                  <input checked="" class="mt-1 w-4 h-4 rounded-none border border-outline-variant text-primary focus:ring-0 bg-surface" name="shipping_method" type="radio" value="ground"/>
+                  <div>
+                    <p class="font-body-md font-medium text-primary">Standard Ground</p>
+                    <p class="font-body-sm text-on-surface-variant">3–5 business days</p>
+                  </div>
+                </div>
+                <span class="font-label-uppercase text-primary font-semibold">Free</span>
+              </label>
+
+              <!-- Method 2: Priority -->
+              <label class="relative flex items-center justify-between p-4 border border-outline-variant bg-surface hover:border-outline cursor-pointer transition-colors">
+                <div class="flex items-start gap-3">
+                  <input class="mt-1 w-4 h-4 rounded-none border border-outline-variant text-primary focus:ring-0 bg-surface" name="shipping_method" type="radio" value="express"/>
+                  <div>
+                    <p class="font-body-md font-medium text-primary">Express Courier</p>
+                    <p class="font-body-sm text-on-surface-variant">1–2 business days</p>
+                  </div>
+                </div>
+                <span class="font-body-md text-primary font-medium">€35.00</span>
+              </label>
+
+              <!-- Method 3: White Glove -->
+              <label class="relative flex items-center justify-between p-4 border border-outline-variant bg-surface hover:border-outline cursor-pointer transition-colors">
+                <div class="flex items-start gap-3">
+                  <input class="mt-1 w-4 h-4 rounded-none border border-outline-variant text-primary focus:ring-0 bg-surface" name="shipping_method" type="radio" value="white_glove"/>
+                  <div>
+                    <p class="font-body-md font-medium text-primary">White Glove Delivery</p>
+                    <p class="font-body-sm text-on-surface-variant">Scheduled hand-delivery &amp; garment care</p>
+                  </div>
+                </div>
+                <span class="font-body-md text-primary font-medium">€75.00</span>
+              </label>
+            </div>
+          </fieldset>
+
+          <!-- STEP 4: Payment Method -->
+          <fieldset class="space-y-4">
+            <div class="flex items-center justify-between pb-2 border-b border-outline-variant">
+              <div class="flex items-center gap-3">
+                <span class="w-6 h-6 rounded-none bg-primary text-on-primary flex items-center justify-center font-label-uppercase text-[11px]">4</span>
+                <legend class="font-headline-sm text-primary">Payment</legend>
+              </div>
+              <div class="flex items-center gap-2">
+                <span class="font-label-uppercase text-on-surface-variant text-[10px]">Encrypted 256-Bit</span>
+                <span class="material-symbols-outlined text-[16px] text-primary">shield</span>
+              </div>
+            </div>
+
+            <!-- Tab Selectors -->
+            <div class="grid grid-cols-2 gap-px bg-outline-variant border border-outline-variant">
+              <button class="bg-surface py-3 px-4 text-center font-label-uppercase text-primary border-b-2 border-primary" id="tab-cc" type="button">
+                Credit / Debit Card
+              </button>
+              <button class="bg-surface-container-low py-3 px-4 text-center font-label-uppercase text-on-surface-variant hover:text-primary transition-colors" id="tab-pp" type="button">
+                PayPal Digital
+              </button>
+            </div>
+
+            <!-- Credit Card Container -->
+            <div class="p-4 bg-surface border border-outline-variant space-y-3" id="card-fields-container">
+              <div>
+                <label class="atelier-label" for="card-number">Card Number</label>
+                <div class="relative">
+                  <input class="atelier-input pr-24" id="card-number" placeholder="4242 •••• •••• 4242" required="" type="text" value="4242 •••• •••• 1089"/>
+                  <div class="absolute right-3 top-1/2 -translate-y-1/2 flex items-center gap-1 text-on-surface-variant">
+                    <span class="font-label-uppercase text-[9px] border border-outline-variant px-1 bg-surface-container">VISA</span>
+                    <span class="font-label-uppercase text-[9px] border border-outline-variant px-1 bg-surface-container">MC</span>
+                    <span class="font-label-uppercase text-[9px] border border-outline-variant px-1 bg-surface-container">AMEX</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="grid grid-cols-2 gap-3">
+                <div>
+                  <label class="atelier-label" for="card-exp">Expiration Date</label>
+                  <input class="atelier-input" id="card-exp" placeholder="MM / YY" required="" type="text" value="08 / 28"/>
+                </div>
+                <div>
+                  <label class="atelier-label" for="card-cvc">Security Code (CVC)</label>
+                  <input class="atelier-input" id="card-cvc" maxlength="4" placeholder="•••" required="" type="password" value="882"/>
+                </div>
+              </div>
+
+              <div>
+                <label class="atelier-label" for="card-name">Cardholder Full Name</label>
+                <input class="atelier-input" id="card-name" required="" type="text" value="Helena Vestergaard"/>
+              </div>
+
+              <div class="pt-2 flex items-start gap-2.5">
+                <input checked="" class="mt-1 w-4 h-4 rounded-none border border-outline-variant text-primary focus:ring-0 bg-surface" id="billing-match" type="checkbox"/>
+                <label class="font-body-sm text-on-surface-variant cursor-pointer select-none" for="billing-match">
+                  Billing address matches shipping destination specified above.
+                </label>
+              </div>
+            </div>
+
+            <!-- PayPal Container (hidden by default) -->
+            <div class="p-6 bg-surface border border-outline-variant text-center space-y-3" id="paypal-fields-container" style="display: none;">
+              <span class="material-symbols-outlined text-3xl text-secondary">account_balance_wallet</span>
+              <p class="font-body-md text-primary">You will be redirected to PayPal to complete your purchase securely.</p>
+              <p class="font-body-sm text-secondary text-xs">Supports PayPal Credit and Pay in 4 installments.</p>
+            </div>
+          </fieldset>
+
+          <!-- Terms & Primary Execution Button -->
+          <div class="space-y-4 pt-2">
+            <div class="flex items-start gap-2.5">
+              <input checked="" class="mt-1 w-4 h-4 rounded-none border border-outline-variant text-primary focus:ring-0 bg-surface" id="accept-terms" required="" type="checkbox"/>
+              <label class="font-body-sm text-on-surface-variant cursor-pointer" for="accept-terms">
+                I agree to the <a class="underline underline-offset-4 text-primary hover:text-secondary" href="#">Terms of Sale</a>, our <a class="underline underline-offset-4 text-primary hover:text-secondary" href="index.html#sustainability">Sustainability Charter</a>, and acknowledge the complimentary 30-day return policy.
+              </label>
+            </div>
+
+            <!-- Primary Checkout CTA Button -->
+            <button class="w-full btn-primary flex justify-between items-center text-sm" id="complete-order-btn" type="submit">
+              <span>Authorize &amp; Complete Order</span>
+              <span class="flex items-center gap-2">
+                <span class="material-symbols-outlined text-[18px]">arrow_forward</span>
+              </span>
+            </button>
+
+            <!-- SSL Indicator -->
+            <div class="flex items-center justify-center gap-2 pt-1 text-on-surface-variant">
+              <span class="material-symbols-outlined text-[15px] text-primary" style="font-variation-settings: 'FILL' 1;">lock</span>
+              <p class="font-label-uppercase text-[10px] tracking-wider">
+                End-to-End 256-Bit SSL Encryption • Authenticated Transaction
+              </p>
+            </div>
+          </div>
+        </form>
+      </section>
+
+      <!-- RIGHT COLUMN: Sticky Order Summary Card (5 Columns) -->
+      <aside class="lg:col-span-5 sticky top-28 space-y-6">
+        <div class="bg-surface-container-low border border-outline-variant p-6 space-y-6">
+          
+          <!-- Summary Header -->
+          <div class="flex items-baseline justify-between border-b border-outline-variant pb-4">
+            <h2 class="font-headline-sm text-primary">Order Summary</h2>
+            <span class="font-label-uppercase text-secondary" id="checkout-items-count">2 Items</span>
+          </div>
+
+          <!-- Line Items List (Dynamically populated from window.atelierStore) -->
+          <div class="space-y-4" id="checkout-items-list">
+            <!-- Fallback Static Items if JS disabled -->
+            <article class="flex gap-4 items-start group">
+              <div class="w-20 h-[106px] flex-shrink-0 bg-surface border border-outline-variant overflow-hidden relative">
+                <img class="w-full h-full object-cover" src="Assets/Woman_wearing_tailored_blazer_2K_20261015150558.jpg" alt="The Double-Breasted Cashmere Trench"/>
+                <span class="absolute top-1 right-1 bg-primary text-on-primary font-label-uppercase text-[9px] w-4 h-4 flex items-center justify-center">1</span>
+              </div>
+              <div class="flex-grow flex flex-col justify-between h-[106px] py-0.5">
+                <div>
+                  <h3 class="font-body-md text-body-md font-medium text-primary leading-snug">The Double-Breasted Cashmere Trench</h3>
+                  <p class="font-body-sm text-secondary pt-0.5">Size M • Raw Ecru</p>
+                  <p class="font-body-sm text-on-surface-variant">100% Mongolian Cashmere</p>
+                </div>
+                <div class="flex items-baseline justify-between pt-1">
+                  <span class="font-label-uppercase text-[10px] text-on-surface-variant">Edition #18 of 50</span>
+                  <span class="font-body-md font-medium text-primary">€1,280.00</span>
+                </div>
+              </div>
+            </article>
+
+            <div class="border-t border-outline-variant/60"></div>
+
+            <article class="flex gap-4 items-start group">
+              <div class="w-20 h-[106px] flex-shrink-0 bg-surface border border-outline-variant overflow-hidden relative">
+                <img class="w-full h-full object-cover" src="Assets/Accessories_flat-lay_on_beige_su__2K_20261015150619.jpg" alt="Curated Leather Accessories"/>
+                <span class="absolute top-1 right-1 bg-primary text-on-primary font-label-uppercase text-[9px] w-4 h-4 flex items-center justify-center">1</span>
+              </div>
+              <div class="flex-grow flex flex-col justify-between h-[106px] py-0.5">
+                <div>
+                  <h3 class="font-body-md text-body-md font-medium text-primary leading-snug">Curated Leather Suite</h3>
+                  <p class="font-body-sm text-secondary pt-0.5">One Size • Raw Umber</p>
+                  <p class="font-body-sm text-on-surface-variant">Vegetable-Tanned Calfskin</p>
+                </div>
+                <div class="flex items-baseline justify-between pt-1">
+                  <span class="font-label-uppercase text-[10px] text-on-surface-variant">Core Collection</span>
+                  <span class="font-body-md font-medium text-primary">€280.00</span>
+                </div>
+              </div>
+            </article>
+          </div>
+
+          <!-- Promo Code / Voucher Input -->
+          <div class="pt-2 border-t border-outline-variant">
+            <div class="flex gap-2">
+              <input class="atelier-input flex-grow h-11 uppercase" id="voucher-code-input" placeholder="Invitation or Courtesy Voucher" type="text"/>
+              <button class="btn-outline h-11 px-4 text-xs" onclick="applyVoucherCode()" type="button">
+                Apply
+              </button>
+            </div>
+            <p class="font-body-sm text-[11px] text-secondary mt-1">Try code: <span class="font-semibold text-primary">AURELIA15</span> for 15% seasonal collector discount.</p>
+          </div>
+
+          <!-- Financial Breakdown -->
+          <div class="space-y-2.5 pt-2 border-t border-outline-variant font-body-sm">
+            <div class="flex justify-between text-on-surface-variant">
+              <span>Subtotal</span>
+              <span class="text-primary font-medium" id="checkout-subtotal">€1,560.00</span>
+            </div>
+
+            <div class="justify-between text-secondary" id="checkout-discount-row" style="display: none;">
+              <span class="flex items-center gap-1.5">
+                <span class="material-symbols-outlined text-[15px]">redeem</span>
+                Courtesy Discount
+              </span>
+              <span class="font-medium" id="checkout-discount-value">-€0.00</span>
+            </div>
+
+            <div class="flex justify-between text-on-surface-variant">
+              <span>Carbon-Neutral Ground Courier</span>
+              <span class="text-primary font-medium" id="checkout-shipping-val">Calculated Above</span>
+            </div>
+
+            <div class="flex justify-between text-on-surface-variant">
+              <span>Estimated Tax (VAT included)</span>
+              <span class="text-primary font-medium">Included</span>
+            </div>
+
+            <div class="border-t border-outline-variant pt-3 flex justify-between items-baseline">
+              <div>
+                <span class="font-headline-sm text-primary block">Total</span>
+                <span class="font-body-sm text-on-surface-variant text-xs">Including duty &amp; certified carbon offset</span>
+              </div>
+              <div class="text-right">
+                <span class="font-headline-md text-primary font-serif font-medium" id="checkout-grand-total">€1,560.00</span>
+                <span class="font-label-uppercase text-[10px] text-on-surface-variant block">EUR</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Atelier Guarantees Card -->
+          <div class="p-4 bg-surface border border-outline-variant space-y-3">
+            <p class="font-label-uppercase text-primary border-b border-outline-variant pb-2">The Aurelia Atelier Promise</p>
+            <div class="flex items-start gap-3">
+              <span class="material-symbols-outlined text-[18px] text-secondary mt-0.5">verified</span>
+              <div>
+                <p class="font-body-sm font-medium text-primary">Authenticity Certified</p>
+                <p class="font-body-sm text-on-surface-variant text-xs">Numbered garment passport included with unique atelier seal.</p>
+              </div>
+            </div>
+            <div class="flex items-start gap-3">
+              <span class="material-symbols-outlined text-[18px] text-secondary mt-0.5">sync</span>
+              <div>
+                <p class="font-body-sm font-medium text-primary">30-Day Complimentary Returns</p>
+                <p class="font-body-sm text-on-surface-variant text-xs">Pre-printed carbon-neutral return label and doorstep collection.</p>
+              </div>
+            </div>
+            <div class="flex items-start gap-3">
+              <span class="material-symbols-outlined text-[18px] text-secondary mt-0.5">spa</span>
+              <div>
+                <p class="font-body-sm font-medium text-primary">Lifetime Garment Care</p>
+                <p class="font-body-sm text-on-surface-variant text-xs">Complimentary tailoring adjustments and fiber restoration consultation.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </aside>
+    </div>
+  </main>
+
+  <!-- FOCUSED CHECKOUT FOOTER -->
+  <footer class="w-full bg-surface-container-low border-t border-outline-variant mt-16">
+    <div class="max-w-[1440px] mx-auto px-4 sm:px-8 lg:px-16 py-8 flex flex-col md:flex-row items-center justify-between gap-4">
+      <div class="flex items-center gap-3">
+        <span class="font-headline-sm uppercase tracking-tight text-primary font-serif">AURELIA</span>
+        <span class="text-outline-variant">|</span>
+        <p class="font-body-sm text-on-surface-variant">© 2025 Aurelia Atelier. All rights reserved. Crafted with discerning permanence.</p>
+      </div>
+      <nav aria-label="Assistance" class="flex flex-wrap items-center gap-6">
+        <a class="font-label-uppercase text-on-surface-variant hover:text-primary transition-colors text-xs" href="index.html">Atelier Home</a>
+        <a class="font-label-uppercase text-on-surface-variant hover:text-primary transition-colors text-xs" href="product.html">Garment Portfolio</a>
+        <a class="font-label-uppercase text-on-surface-variant hover:text-primary transition-colors text-xs" href="index.html#sustainability">Sustainability Charter</a>
+      </nav>
+    </div>
+  </footer>
+
+  <!-- ORDER CONFIRMATION MODAL -->
+  <div class="atelier-modal-overlay" id="order-confirmation-modal">
+    <div class="atelier-modal-content text-center max-w-lg">
+      <div class="w-16 h-16 bg-surface-container border border-outline-variant mx-auto flex items-center justify-center mb-6">
+        <span class="material-symbols-outlined text-3xl text-primary" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+      </div>
+      
+      <span class="font-label-uppercase text-secondary tracking-widest block mb-2">TRANSACTION AUTHENTICATED</span>
+      <h2 class="font-headline-lg text-primary font-serif mb-3">Order Confirmed</h2>
+      <p class="font-body-md text-on-surface-variant mb-6">
+        Thank you, Helena. Your bespoke garments have been scheduled for hand-pressing and cedar preparation at the Florentine atelier.
+      </p>
+
+      <div class="p-4 bg-surface-container-low border border-outline-variant text-left space-y-2 mb-6 font-body-sm">
+        <div class="flex justify-between">
+          <span class="text-secondary">Order Reference:</span>
+          <span class="font-mono font-medium text-primary">#AA-2025-9842</span>
+        </div>
+        <div class="flex justify-between">
+          <span class="text-secondary">Delivery Destination:</span>
+          <span class="text-primary">Bredgade 34A, Copenhagen</span>
+        </div>
+        <div class="flex justify-between">
+          <span class="text-secondary">Estimated Courier Window:</span>
+          <span class="text-primary">3–5 Business Days</span>
+        </div>
+      </div>
+
+      <div class="space-y-3">
+        <a href="index.html" class="btn-primary w-full text-center">
+          Return to Atelier Homepage
+        </a>
+        <button onclick="window.print()" class="btn-outline w-full text-center" type="button">
+          Print Order Monograph
+        </button>
+      </div>
+    </div>
+  </div>
+
+</body>
+</html>
