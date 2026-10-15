@@ -1,6 +1,6 @@
 /* ==========================================================================
-   AURELIA ATELIER — ARCHITECTURAL MINIMALIST DESIGN SYSTEM
-   Design System: Atelier Minimal
+   AURELIA ATELIER — ARCHITECTURAL MINIMALIST LUXURY DESIGN SYSTEM
+   Design System: Atelier Minimal Modern
    ========================================================================== */
 
 @import url('https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Hanken+Grotesk:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap');
@@ -8,38 +8,38 @@
 
 :root {
   /* Surface & Background Tones */
-  --color-background: #faf9f6;
-  --color-surface: #faf9f6;
+  --color-background: #faf8f5;
+  --color-surface: #faf8f5;
   --color-surface-dim: #dbdad7;
-  --color-surface-bright: #faf9f6;
+  --color-surface-bright: #faf8f5;
   --color-surface-container-lowest: #ffffff;
-  --color-surface-container-low: #f4f3f0;
-  --color-surface-container: #efeeeb;
-  --color-surface-container-high: #e9e8e5;
-  --color-surface-container-highest: #e3e2e0;
-  --color-surface-variant: #e3e2e0;
+  --color-surface-container-low: #f4f2ee;
+  --color-surface-container: #edeae4;
+  --color-surface-container-high: #e7e3dc;
+  --color-surface-container-highest: #ded9d0;
+  --color-surface-variant: #e3ded6;
 
   /* Ink & Typography */
-  --color-on-surface: #1a1c1a;
-  --color-on-surface-variant: #4a4640;
-  --color-inverse-surface: #2f312f;
-  --color-inverse-on-surface: #f2f1ee;
+  --color-on-surface: #141312;
+  --color-on-surface-variant: #4a453e;
+  --color-inverse-surface: #242220;
+  --color-inverse-on-surface: #f4f2ee;
 
   /* Brand Accents */
-  --color-primary: #191817;
+  --color-primary: #141312;
   --color-on-primary: #ffffff;
-  --color-primary-container: #1c1b1a;
-  --color-secondary: #6c5b4d;
+  --color-primary-container: #1d1b19;
+  --color-secondary: #7d6d5f;
   --color-on-secondary: #ffffff;
-  --color-secondary-container: #f2dcca;
-  --color-tertiary: #000000;
-  --color-tertiary-container: #231a0e;
+  --color-secondary-container: #f2decb;
+  --color-tertiary: #2e2820;
+  --color-tertiary-container: #231b11;
 
   /* Architectural Framing */
-  --color-outline: #7b766f;
-  --color-outline-variant: #ccc5bd;
-  --color-outline-subtle: #e7e2da;
-  --color-surface-tint: #605e5c;
+  --color-outline: #7c766e;
+  --color-outline-variant: #d4cec5;
+  --color-outline-subtle: #e8e4dc;
+  --color-surface-tint: #5f5d59;
 
   /* Spacing Rhythm */
   --space-xs: 0.25rem;
@@ -83,8 +83,8 @@ body {
 }
 
 ::selection {
-  background-color: var(--color-tertiary-container);
-  color: #faf9f6;
+  background-color: #231b11;
+  color: #faf8f5;
 }
 
 img {
@@ -127,8 +127,8 @@ button {
 
 /* Custom Architectural Scrollbar */
 ::-webkit-scrollbar {
-  width: 4px;
-  height: 4px;
+  width: 5px;
+  height: 5px;
 }
 ::-webkit-scrollbar-track {
   background: var(--color-surface);
@@ -154,17 +154,17 @@ button {
 
 .font-display-hero {
   font-family: 'EB Garamond', Georgia, serif;
-  font-size: clamp(2.5rem, 5vw, 4rem);
+  font-size: clamp(2.5rem, 5.5vw, 4.25rem);
   font-weight: 400;
-  line-height: 1.12;
-  letter-spacing: -0.02em;
+  line-height: 1.08;
+  letter-spacing: -0.025em;
 }
 
 .font-headline-lg {
   font-family: 'EB Garamond', Georgia, serif;
-  font-size: clamp(1.85rem, 3.5vw, 2.75rem);
+  font-size: clamp(1.85rem, 3.8vw, 2.85rem);
   font-weight: 400;
-  line-height: 1.2;
+  line-height: 1.18;
   letter-spacing: -0.015em;
 }
 
@@ -178,16 +178,16 @@ button {
 
 .font-headline-sm {
   font-family: 'EB Garamond', Georgia, serif;
-  font-size: 1.375rem;
+  font-size: 1.35rem;
   font-weight: 500;
   line-height: 1.3;
 }
 
 .font-title-md {
   font-family: 'Hanken Grotesk', sans-serif;
-  font-size: 1rem;
+  font-size: 0.95rem;
   font-weight: 600;
-  line-height: 1.5;
+  line-height: 1.45;
   letter-spacing: 0.02em;
 }
 
@@ -217,7 +217,7 @@ button {
   font-size: 0.6875rem;
   font-weight: 600;
   line-height: 1.25;
-  letter-spacing: 0.12em;
+  letter-spacing: 0.14em;
   text-transform: uppercase;
 }
 
@@ -230,44 +230,71 @@ button {
 }
 
 /* ==========================================================================
-   Layout Containers
+   Modern Top Announcement Bar & Ticker
    ========================================================================== */
 
-.container-atelier {
-  width: 100%;
-  max-width: 1440px;
-  margin-left: auto;
-  margin-right: auto;
-  padding-left: clamp(1.25rem, 4vw, 4.5rem);
-  padding-right: clamp(1.25rem, 4vw, 4.5rem);
+.announcement-bar {
+  background-color: #141312;
+  color: #faf8f5;
+  font-size: 0.6875rem;
+  font-weight: 500;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  padding: 0.5rem 1rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: relative;
+  z-index: 60;
+}
+
+.announcement-ticker {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.announcement-dot {
+  display: inline-block;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background-color: #cbb49d;
 }
 
 /* ==========================================================================
-   Header & Navigation
+   Header & Navigation with Frosted Glass
    ========================================================================== */
 
 .atelier-header {
-  background-color: var(--color-surface);
-  border-bottom: 1px solid var(--color-outline-variant);
+  background-color: rgba(250, 248, 245, 0.92);
+  backdrop-filter: blur(14px) saturate(160%);
+  -webkit-backdrop-filter: blur(14px) saturate(160%);
+  border-bottom: 1px solid var(--color-outline-subtle);
   position: sticky;
   top: 0;
   z-index: 50;
   width: 100%;
-  transition: box-shadow 0.25s ease;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .atelier-header.scrolled {
-  box-shadow: 0 4px 20px -5px rgba(25, 24, 23, 0.05);
+  background-color: rgba(250, 248, 245, 0.98);
+  border-bottom-color: var(--color-outline-variant);
+  box-shadow: 0 8px 30px -10px rgba(20, 19, 18, 0.06);
 }
 
 .nav-link {
   font-family: 'Hanken Grotesk', sans-serif;
-  font-size: 0.6875rem;
+  font-size: 0.7rem;
   font-weight: 600;
-  letter-spacing: 0.12em;
+  letter-spacing: 0.14em;
   text-transform: uppercase;
   color: var(--color-on-surface-variant);
-  padding-bottom: 2px;
+  padding: 0.5rem 0;
   position: relative;
   transition: color 0.2s ease;
 }
@@ -276,17 +303,22 @@ button {
   color: var(--color-primary);
 }
 
-.nav-link.active::after, .nav-link:hover::after {
+.nav-link::after {
   content: '';
   position: absolute;
   bottom: 0;
   left: 0;
-  width: 100%;
-  height: 1px;
+  width: 0%;
+  height: 1.5px;
   background-color: var(--color-primary);
+  transition: width 0.25s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-/* Badges & Counters */
+.nav-link:hover::after, .nav-link.active::after {
+  width: 100%;
+}
+
+/* Badges & Action Counters */
 .action-badge {
   position: absolute;
   top: -4px;
@@ -300,26 +332,61 @@ button {
   line-height: 16px;
   text-align: center;
   padding: 0 4px;
+  transition: transform 0.2s ease;
 }
 
 /* ==========================================================================
-   Buttons & Interactive Elements
-   Strict 0px border-radius architecture
+   Buttons & Interactive Elements (Sharp Rectilinear Architecture)
    ========================================================================== */
 
 .btn-primary {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 0.5rem;
+  gap: 0.625rem;
   background-color: var(--color-primary);
   color: #ffffff;
   height: 52px;
-  padding: 0 2rem;
+  padding: 0 2.25rem;
   font-family: 'Hanken Grotesk', sans-serif;
-  font-size: 0.6875rem;
+  font-size: 0.7rem;
   font-weight: 600;
-  letter-spacing: 0.12em;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  border: 1px solid var(--color-primary);
+  border-radius: 0;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  text-decoration: none;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-primary:hover {
+  background-color: var(--color-secondary);
+  border-color: var(--color-secondary);
+  color: #ffffff;
+  transform: translateY(-1px);
+  box-shadow: 0 6px 16px -4px rgba(20, 19, 18, 0.2);
+}
+
+.btn-primary:active {
+  transform: translateY(0);
+}
+
+.btn-outline {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.625rem;
+  background-color: transparent;
+  color: var(--color-primary);
+  height: 52px;
+  padding: 0 2.25rem;
+  font-family: 'Hanken Grotesk', sans-serif;
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
   text-transform: uppercase;
   border: 1px solid var(--color-primary);
   border-radius: 0;
@@ -328,43 +395,17 @@ button {
   cursor: pointer;
 }
 
-.btn-primary:hover {
-  background-color: var(--color-secondary);
-  border-color: var(--color-secondary);
-  color: #ffffff;
-}
-
-.btn-outline {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.5rem;
-  background-color: transparent;
-  color: var(--color-primary);
-  height: 52px;
-  padding: 0 2rem;
-  font-family: 'Hanken Grotesk', sans-serif;
-  font-size: 0.6875rem;
-  font-weight: 600;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  border: 1px solid var(--color-primary);
-  border-radius: 0;
-  transition: all 0.25s ease;
-  text-decoration: none;
-  cursor: pointer;
-}
-
 .btn-outline:hover {
   background-color: var(--color-primary);
   color: #ffffff;
+  transform: translateY(-1px);
 }
 
 .btn-ghost-link {
   font-family: 'Hanken Grotesk', sans-serif;
-  font-size: 0.6875rem;
+  font-size: 0.7rem;
   font-weight: 600;
-  letter-spacing: 0.12em;
+  letter-spacing: 0.14em;
   text-transform: uppercase;
   color: var(--color-primary);
   border-bottom: 1px solid var(--color-primary);
@@ -378,10 +419,11 @@ button {
 .btn-ghost-link:hover {
   color: var(--color-secondary);
   border-color: var(--color-secondary);
+  gap: 0.75rem;
 }
 
 /* ==========================================================================
-   Product Cards & Galleries
+   Modern Product Cards & Quick-Action System
    ========================================================================== */
 
 .product-card {
@@ -389,44 +431,137 @@ button {
   flex-direction: column;
   position: relative;
   background: transparent;
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .product-media {
   position: relative;
   aspect-ratio: 3 / 4;
   background-color: var(--color-surface-container);
-  border: 1px solid var(--color-outline-variant);
+  border: 1px solid var(--color-outline-subtle);
   overflow: hidden;
   margin-bottom: 1rem;
+  transition: border-color 0.25s ease;
+}
+
+.product-card:hover .product-media {
+  border-color: var(--color-primary);
 }
 
 .product-media img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: transform 0.75s cubic-bezier(0.16, 1, 0.3, 1), filter 0.5s ease;
 }
 
 .product-card:hover .product-media img {
-  transform: scale(1.03);
+  transform: scale(1.04);
 }
 
+/* Product Badges */
 .product-badge {
   position: absolute;
-  top: 0.75rem;
-  left: 0.75rem;
+  top: 0.85rem;
+  left: 0.85rem;
   z-index: 10;
-  background-color: var(--color-surface);
+  background-color: rgba(250, 248, 245, 0.95);
+  backdrop-filter: blur(8px);
   border: 1px solid var(--color-outline-variant);
-  padding: 0.25rem 0.625rem;
+  padding: 0.3rem 0.65rem;
   font-family: 'Hanken Grotesk', sans-serif;
-  font-size: 0.6875rem;
+  font-size: 0.65rem;
   font-weight: 600;
-  letter-spacing: 0.12em;
+  letter-spacing: 0.14em;
   text-transform: uppercase;
   color: var(--color-primary);
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
 }
 
+.badge-dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background-color: var(--color-secondary);
+}
+
+/* Wishlist Toggle Button on Card */
+.card-wishlist-btn {
+  position: absolute;
+  top: 0.85rem;
+  right: 0.85rem;
+  z-index: 12;
+  width: 34px;
+  height: 34px;
+  background-color: rgba(250, 248, 245, 0.92);
+  backdrop-filter: blur(8px);
+  border: 1px solid var(--color-outline-variant);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-primary);
+  transition: all 0.2s ease;
+}
+
+.card-wishlist-btn:hover {
+  background-color: var(--color-primary);
+  color: #ffffff;
+  border-color: var(--color-primary);
+}
+
+.card-wishlist-btn.active {
+  background-color: var(--color-primary);
+  color: #ffffff;
+}
+
+.card-wishlist-btn.active .material-symbols-outlined {
+  font-variation-settings: 'FILL' 1;
+}
+
+/* Quick Size Bar Hover Selector */
+.quick-size-bar {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: rgba(20, 19, 18, 0.96);
+  backdrop-filter: blur(8px);
+  padding: 0.625rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.35rem;
+  opacity: 0;
+  transform: translateY(100%);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  z-index: 15;
+}
+
+.product-card:hover .quick-size-bar {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.quick-size-btn {
+  color: #ffffff;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  padding: 0.3rem 0.6rem;
+  font-size: 0.65rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  transition: all 0.15s ease;
+}
+
+.quick-size-btn:hover {
+  background-color: #ffffff;
+  color: var(--color-primary);
+  border-color: #ffffff;
+}
+
+/* Classic Quick Add Bar */
 .quick-add-btn {
   position: absolute;
   bottom: 0;
@@ -478,7 +613,124 @@ button {
 
 .swatch-pip:hover, .swatch-pip.active {
   box-shadow: 0 0 0 1px #ffffff, 0 0 0 2px var(--color-primary);
-  transform: scale(1.1);
+  transform: scale(1.15);
+}
+
+/* ==========================================================================
+   Interactive Lookbook Hotspots & Popovers
+   ========================================================================== */
+
+.hotspot-pin {
+  position: absolute;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background-color: rgba(250, 248, 245, 0.95);
+  border: 1.5px solid var(--color-primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.25s ease;
+  z-index: 20;
+}
+
+.hotspot-pin::after {
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  border: 1px solid var(--color-primary);
+  animation: hotspotPulse 2s infinite;
+}
+
+@keyframes hotspotPulse {
+  0% {
+    transform: scale(1);
+    opacity: 0.8;
+  }
+  100% {
+    transform: scale(1.8);
+    opacity: 0;
+  }
+}
+
+.hotspot-pin:hover {
+  transform: scale(1.15);
+  background-color: var(--color-primary);
+}
+
+.hotspot-pin:hover .hotspot-core {
+  background-color: #ffffff;
+}
+
+.hotspot-core {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: var(--color-primary);
+  transition: background-color 0.2s ease;
+}
+
+/* Floating Hotspot Popover Card */
+.hotspot-popover {
+  position: absolute;
+  z-index: 30;
+  background-color: rgba(250, 248, 245, 0.98);
+  backdrop-filter: blur(12px);
+  border: 1px solid var(--color-outline-variant);
+  box-shadow: 0 16px 36px -8px rgba(20, 19, 18, 0.18);
+  width: 250px;
+  padding: 0.875rem;
+  display: none;
+  animation: fadeIn 0.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.hotspot-popover.active {
+  display: block;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ==========================================================================
+   Modern Filter Chips
+   ========================================================================== */
+
+.filter-chip-bar {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  overflow-x: auto;
+  padding-bottom: 0.5rem;
+}
+
+.filter-chip {
+  padding: 0.5rem 1.25rem;
+  background-color: transparent;
+  border: 1px solid var(--color-outline-variant);
+  color: var(--color-on-surface-variant);
+  font-family: 'Hanken Grotesk', sans-serif;
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+}
+
+.filter-chip:hover {
+  border-color: var(--color-primary);
+  color: var(--color-primary);
+}
+
+.filter-chip.active {
+  background-color: var(--color-primary);
+  color: #ffffff;
+  border-color: var(--color-primary);
 }
 
 /* ==========================================================================
@@ -496,11 +748,12 @@ button {
   font-size: 0.9375rem;
   border-radius: 0;
   outline: none;
-  transition: border-color 0.2s ease;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
 }
 
 .atelier-input:focus, .atelier-select:focus {
   border-color: var(--color-primary);
+  box-shadow: 0 0 0 1px var(--color-primary);
 }
 
 .atelier-input::placeholder {
@@ -525,8 +778,9 @@ button {
 .drawer-backdrop {
   position: fixed;
   inset: 0;
-  background-color: rgba(25, 24, 23, 0.45);
-  backdrop-filter: blur(2px);
+  background-color: rgba(20, 19, 18, 0.55);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
   z-index: 100;
   opacity: 0;
   visibility: hidden;
@@ -544,10 +798,10 @@ button {
   right: 0;
   bottom: 0;
   width: 100%;
-  max-width: 440px;
+  max-width: 450px;
   background-color: var(--color-surface);
   z-index: 101;
-  box-shadow: -10px 0 30px rgba(0, 0, 0, 0.1);
+  box-shadow: -15px 0 40px rgba(0, 0, 0, 0.15);
   transform: translateX(100%);
   transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
   display: flex;
@@ -560,7 +814,7 @@ button {
 
 .cart-drawer-header {
   padding: 1.5rem;
-  border-bottom: 1px solid var(--color-outline-variant);
+  border-bottom: 1px solid var(--color-outline-subtle);
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -574,8 +828,31 @@ button {
 
 .cart-drawer-footer {
   padding: 1.5rem;
-  border-top: 1px solid var(--color-outline-variant);
+  border-top: 1px solid var(--color-outline-subtle);
   background-color: var(--color-surface-container-low);
+}
+
+/* Shipping Threshold Progress Bar in Cart Drawer */
+.free-shipping-card {
+  padding: 0.875rem 1rem;
+  background-color: var(--color-surface-container);
+  border: 1px solid var(--color-outline-subtle);
+  margin-bottom: 1.25rem;
+}
+
+.progress-track {
+  width: 100%;
+  height: 4px;
+  background-color: var(--color-outline-variant);
+  margin-top: 0.5rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  background-color: var(--color-primary);
+  transition: width 0.4s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 /* ==========================================================================
@@ -584,8 +861,8 @@ button {
 
 .toast-container {
   position: fixed;
-  bottom: 1.5rem;
-  right: 1.5rem;
+  bottom: 1.75rem;
+  right: 1.75rem;
   z-index: 200;
   display: flex;
   flex-direction: column;
@@ -597,26 +874,26 @@ button {
   pointer-events: auto;
   background-color: var(--color-primary);
   color: #ffffff;
-  padding: 1rem 1.5rem;
+  padding: 1.125rem 1.5rem;
   border: 1px solid var(--color-secondary);
   border-radius: 0;
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.25);
   display: flex;
   align-items: center;
-  gap: 0.875rem;
-  min-width: 300px;
-  max-width: 420px;
-  animation: slideInToast 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  gap: 1rem;
+  min-width: 320px;
+  max-width: 440px;
+  animation: slideInToast 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
 @keyframes slideInToast {
   from {
     opacity: 0;
-    transform: translateY(20px);
+    transform: translateY(24px) scale(0.96);
   }
   to {
     opacity: 1;
-    transform: translateY(0);
+    transform: translateY(0) scale(1);
   }
 }
 
@@ -627,19 +904,20 @@ button {
 @keyframes slideOutToast {
   to {
     opacity: 0;
-    transform: translateY(15px);
+    transform: translateY(15px) scale(0.96);
   }
 }
 
 /* ==========================================================================
-   Modals (Size Guide, Search, Confirmation)
+   Modals (Size Guide, Search, Confirmation, Lightbox)
    ========================================================================== */
 
 .atelier-modal-overlay {
   position: fixed;
   inset: 0;
-  background-color: rgba(25, 24, 23, 0.55);
-  backdrop-filter: blur(4px);
+  background-color: rgba(20, 19, 18, 0.65);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
   z-index: 150;
   display: flex;
   align-items: center;
@@ -666,14 +944,34 @@ button {
   position: relative;
   transform: scale(0.96);
   transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
 }
 
 .atelier-modal-overlay.active .atelier-modal-content {
   transform: scale(1);
 }
 
+/* Lightbox Modal */
+.lightbox-content {
+  background: transparent;
+  border: none;
+  max-width: 90vw;
+  max-height: 90vh;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.lightbox-content img {
+  max-height: 82vh;
+  width: auto;
+  object-fit: contain;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+}
+
 /* ==========================================================================
-   Mobile Nav Menu Drawer
+   Mobile Nav Menu Drawer & Sticky PDP Purchase Bar
    ========================================================================== */
 
 .mobile-nav-drawer {
@@ -696,6 +994,28 @@ button {
   transform: translateX(0);
 }
 
+/* Sticky Mobile Purchase Bar */
+.sticky-mobile-buybar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: rgba(250, 248, 245, 0.98);
+  backdrop-filter: blur(12px);
+  border-top: 1px solid var(--color-outline-variant);
+  padding: 0.875rem 1.25rem;
+  z-index: 45;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  transform: translateY(110%);
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.sticky-mobile-buybar.visible {
+  transform: translateY(0);
+}
+
 /* ==========================================================================
    Responsive Utilities
    ========================================================================== */
@@ -704,5 +1024,9 @@ button {
   :root {
     --space-2xl: 3rem;
     --space-xl: 2rem;
+  }
+  .announcement-bar {
+    font-size: 0.625rem;
+    padding: 0.4rem 0.75rem;
   }
 }

@@ -1,9 +1,24 @@
 /**
- * AURELIA ATELIER — Interactive Functionality & Commerce Engine
- * Coordinates Cart Drawer, Wishlist, Gallery switcher, Filters, and Checkout Funnel.
+ * AURELIA ATELIER — Modern Interactive Functionality & Commerce Engine
+ * Features:
+ * - Universal WebP image sanitization & asset management
+ * - Interactive Cart Drawer with Free-Shipping Progress Tracker
+ * - Real-time Wishlist persistence with heart toggle animations
+ * - Homepage Category Filtering
+ * - Quick-Size 1-click cart addition
+ * - Interactive Lookbook Hotspots & floating popover buy-cards
+ * - Sticky mobile purchase bar for PDP
+ * - Promo code / courtesy voucher engine
+ * - Full checkout calculation & order authentication modal
  */
 
-// Initial Seed Cart Items
+// Universal WebP Image Sanitizer: guarantees .webp format across all assets
+function sanitizeImage(url) {
+  if (!url) return 'Assets/logo.webp';
+  return url.replace(/\.(jpg|jpeg|webP)$/i, '.webp');
+}
+
+// Initial Seed Cart Items using pristine WebP assets
 const DEFAULT_CART = [
   {
     id: 'cashmere-trench-01',
@@ -11,7 +26,7 @@ const DEFAULT_CART = [
     price: 1280.00,
     size: 'M',
     color: 'Raw Ecru',
-    image: 'Assets/Woman_wearing_tailored_blazer_2K_20261015150558.webP',
+    image: 'Assets/Woman_wearing_tailored_blazer_2K_20261015150558.webp',
     quantity: 1,
     material: '100% Mongolian Cashmere'
   },
@@ -21,26 +36,38 @@ const DEFAULT_CART = [
     price: 280.00,
     size: 'S',
     color: 'Charcoal',
-    image: 'Assets/Accessories_flat-lay_on_beige_su__2K_20261015150619.webP',
+    image: 'Assets/Accessories_flat-lay_on_beige_su__2K_20261015150619.webp',
     quantity: 1,
     material: 'Extra-fine 19.5 Micron Wool'
   }
 ];
 
-// State Manager
+// Free Shipping Threshold (in Euros)
+const FREE_SHIPPING_THRESHOLD = 500.00;
+
+// Centralized State Manager
 class AtelierStore {
   constructor() {
     this.cart = this.loadCart();
     this.wishlist = this.loadWishlist();
     this.appliedDiscount = 0;
     this.selectedShippingCost = 0; // default complimentary ground
+    this.currencySymbol = '€';
     this.init();
   }
 
   loadCart() {
     try {
       const stored = localStorage.getItem('aurelia_cart');
-      return stored ? JSON.parse(stored) : [...DEFAULT_CART];
+      if (stored) {
+        const parsed = JSON.parse(stored);
+        // Sanitize legacy .jpg/.webP URLs to .webp
+        return parsed.map((item) => ({
+          ...item,
+          image: sanitizeImage(item.image)
+        }));
+      }
+      return [...DEFAULT_CART];
     } catch (e) {
       return [...DEFAULT_CART];
     }
@@ -73,14 +100,17 @@ class AtelierStore {
       console.warn('LocalStorage unavailable', e);
     }
     this.updateBadges();
+    this.syncWishlistIcons();
   }
 
   init() {
     this.updateBadges();
     this.renderCartDrawer();
+    this.syncWishlistIcons();
   }
 
   addToCart(item) {
+    const cleanImage = sanitizeImage(item.image);
     const existingIndex = this.cart.findIndex(
       (c) => c.id === item.id && c.size === item.size && c.color === item.color
     );
@@ -93,8 +123,8 @@ class AtelierStore {
         title: item.title,
         price: parseFloat(item.price),
         size: item.size || 'M',
-        color: item.color || 'Natural',
-        image: item.image,
+        color: item.color || 'Raw Ecru',
+        image: cleanImage,
         quantity: item.quantity || 1,
         material: item.material || 'Organic Virgin Fiber'
       });
@@ -128,11 +158,11 @@ class AtelierStore {
     let added = false;
     if (index > -1) {
       this.wishlist.splice(index, 1);
-      showToast('Wishlist Updated', `${productTitle || 'Piece'} removed from your archive.`, 'favorite_border');
+      showToast('Archive Updated', `${productTitle || 'Piece'} removed from saved collection.`, 'favorite_border');
     } else {
       this.wishlist.push(productId);
       added = true;
-      showToast('Saved to Wishlist', `${productTitle || 'Piece'} reserved in your private archive.`, 'favorite');
+      showToast('Saved to Archive', `${productTitle || 'Piece'} reserved in your private collection.`, 'favorite');
     }
     this.saveWishlist();
     return added;
@@ -140,6 +170,24 @@ class AtelierStore {
 
   isWishlisted(productId) {
     return this.wishlist.includes(productId);
+  }
+
+  syncWishlistIcons() {
+    document.querySelectorAll('.card-wishlist-btn, .wishlist-toggle-btn').forEach((btn) => {
+      const id = btn.getAttribute('data-product-id');
+      if (id) {
+        const isSaved = this.isWishlisted(id);
+        if (isSaved) {
+          btn.classList.add('active');
+          const icon = btn.querySelector('.material-symbols-outlined');
+          if (icon) icon.style.fontVariationSettings = "'FILL' 1";
+        } else {
+          btn.classList.remove('active');
+          const icon = btn.querySelector('.material-symbols-outlined');
+          if (icon) icon.style.fontVariationSettings = "'FILL' 0";
+        }
+      }
+    });
   }
 
   getCartTotalCount() {
@@ -170,6 +218,8 @@ class AtelierStore {
     const subtotalEl = document.getElementById('cart-drawer-subtotal');
     if (!container) return;
 
+    const subtotal = this.getCartSubtotal();
+
     if (this.cart.length === 0) {
       container.innerHTML = `
         <div class="py-16 text-center">
@@ -183,12 +233,30 @@ class AtelierStore {
       return;
     }
 
-    let html = '<div class="space-y-4">';
+    // Free Shipping Progress Calculation
+    const progressPercent = Math.min(100, Math.round((subtotal / FREE_SHIPPING_THRESHOLD) * 100));
+    const remainingForFreeShipping = Math.max(0, FREE_SHIPPING_THRESHOLD - subtotal);
+
+    let html = `
+      <!-- Shipping Threshold Progress Card -->
+      <div class="free-shipping-card">
+        <div class="flex justify-between items-center text-xs font-label-uppercase">
+          <span>${remainingForFreeShipping > 0 ? `Add €${remainingForFreeShipping.toFixed(2)} for Free Courier` : '✓ Qualified for Free Worldwide Courier'}</span>
+          <span class="text-secondary">${progressPercent}%</span>
+        </div>
+        <div class="progress-track">
+          <div class="progress-fill" style="width: ${progressPercent}%;"></div>
+        </div>
+      </div>
+
+      <div class="space-y-4">
+    `;
+
     this.cart.forEach((item, idx) => {
       html += `
         <div class="flex gap-4 p-3 bg-surface border border-outline-variant relative group">
           <div class="w-20 h-24 bg-surface-container overflow-hidden shrink-0 border border-outline-variant">
-            <img src="${item.image}" alt="${item.title}" class="w-full h-full object-cover">
+            <img src="${sanitizeImage(item.image)}" alt="${item.title}" class="w-full h-full object-cover">
           </div>
           <div class="flex-grow flex flex-col justify-between py-0.5">
             <div>
@@ -216,7 +284,7 @@ class AtelierStore {
 
     container.innerHTML = html;
     if (subtotalEl) {
-      subtotalEl.textContent = `€${this.getCartSubtotal().toFixed(2)}`;
+      subtotalEl.textContent = `€${subtotal.toFixed(2)}`;
     }
   }
 
@@ -251,7 +319,6 @@ class AtelierStore {
       }
     }
 
-    // Render list items on checkout page if element exists
     if (listEl) {
       if (this.cart.length === 0) {
         listEl.innerHTML = `<p class="text-sm text-secondary italic py-4">Your bag is currently empty.</p>`;
@@ -259,18 +326,18 @@ class AtelierStore {
         listEl.innerHTML = this.cart.map((item) => `
           <article class="flex gap-4 items-start group">
             <div class="w-20 h-[106px] flex-shrink-0 bg-surface border border-outline-variant overflow-hidden relative">
-              <img class="w-full h-full object-cover" src="${item.image}" alt="${item.title}">
+              <img class="w-full h-full object-cover" src="${sanitizeImage(item.image)}" alt="${item.title}">
               <span class="absolute top-1 right-1 bg-primary text-on-primary font-label-uppercase text-[9px] w-4 h-4 flex items-center justify-center">${item.quantity}</span>
             </div>
             <div class="flex-grow flex flex-col justify-between h-[106px] py-0.5">
               <div>
-                <h3 class="font-body-md text-body-md font-medium text-primary leading-snug">${item.title}</h3>
-                <p class="font-body-sm text-body-sm text-secondary pt-0.5">Size ${item.size} • ${item.color}</p>
-                <p class="font-body-sm text-body-sm text-on-surface-variant">${item.material}</p>
+                <h3 class="font-body-md font-medium text-primary leading-snug">${item.title}</h3>
+                <p class="font-body-sm text-secondary pt-0.5">Size ${item.size} • ${item.color}</p>
+                <p class="font-body-sm text-on-surface-variant">${item.material}</p>
               </div>
               <div class="flex items-baseline justify-between pt-1">
                 <span class="font-label-uppercase text-[10px] text-on-surface-variant">Archival Edition</span>
-                <span class="font-body-md text-body-md text-primary font-medium">€${(item.price * item.quantity).toFixed(2)}</span>
+                <span class="font-body-md text-primary font-medium">€${(item.price * item.quantity).toFixed(2)}</span>
               </div>
             </div>
           </article>
@@ -284,7 +351,7 @@ class AtelierStore {
 window.atelierStore = new AtelierStore();
 
 /* ==========================================================================
-   UI Interactive Controls
+   UI Interactive Controls & Modals
    ========================================================================== */
 
 // Cart Drawer Handlers
@@ -379,11 +446,58 @@ function showToast(title, message, icon = 'verified') {
   }, 3500);
 }
 
-// Product Page Interactive Features
+// Quick Size Direct Add to Bag
+function quickAddSize(productId, title, price, size, color, image, material) {
+  window.atelierStore.addToCart({
+    id: productId,
+    title: title,
+    price: price,
+    size: size,
+    color: color,
+    image: sanitizeImage(image),
+    material: material
+  });
+}
+
+// Homepage Category Filter
+function filterProducts(category, chipBtn) {
+  // Update chip active classes
+  document.querySelectorAll('.filter-chip').forEach((chip) => {
+    chip.classList.remove('active');
+  });
+  if (chipBtn) chipBtn.classList.add('active');
+
+  const cards = document.querySelectorAll('[data-product-category]');
+  cards.forEach((card) => {
+    const cardCat = card.getAttribute('data-product-category');
+    if (category === 'all' || cardCat === category) {
+      card.style.display = '';
+      card.style.opacity = '1';
+    } else {
+      card.style.display = 'none';
+      card.style.opacity = '0';
+    }
+  });
+}
+
+// Interactive Hotspot Popover Toggle
+function toggleHotspot(index, event) {
+  if (event) event.stopPropagation();
+  const popover = document.getElementById(`hotspot-popover-${index}`);
+  const isVisible = popover && popover.classList.contains('active');
+
+  // Close all popovers first
+  document.querySelectorAll('.hotspot-popover').forEach((p) => p.classList.remove('active'));
+
+  if (!isVisible && popover) {
+    popover.classList.add('active');
+  }
+}
+
+// Product Page Gallery & Sizing Controls
 let activeGalleryIndex = 0;
 function focusImage(index) {
   activeGalleryIndex = index;
-  // Update thumbnail buttons
   const thumbBtns = document.querySelectorAll('.thumb-btn');
   thumbBtns.forEach((btn, i) => {
     if (i === index) {
@@ -395,7 +509,6 @@ function focusImage(index) {
     }
   });
 
-  // Scroll or highlight primary image
   const targetImage = document.getElementById(`gallery-img-${index}`);
   if (targetImage) {
     targetImage.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
@@ -432,6 +545,19 @@ function selectSize(btn, size) {
   btn.classList.remove('border-outline-variant', 'border', 'text-on-surface');
   btn.classList.add('border-primary', 'border-2', 'bg-primary', 'text-surface', 'font-semibold');
   btn.setAttribute('aria-checked', 'true');
+
+  // Stock inventory dynamic text
+  const stockEl = document.getElementById('size-stock-indicator');
+  if (stockEl) {
+    const stockMap = {
+      'XS': 'Only 2 pieces remaining in size XS',
+      'S': 'In Stock • 5 pieces ready for dispatch',
+      'M': 'Only 3 pieces remaining in size M',
+      'L': 'In Stock • 4 pieces ready for dispatch',
+      'XL': 'Low Stock • 1 piece remaining in size XL'
+    };
+    stockEl.textContent = stockMap[size] || 'Handmade to order in Biella atelier';
+  }
 }
 
 function toggleAccordion(drawerId) {
@@ -472,7 +598,7 @@ function openLightbox(imageSrc, altText) {
   const img = document.getElementById('lightbox-image');
   const caption = document.getElementById('lightbox-caption');
   if (modal && img) {
-    img.src = imageSrc;
+    img.src = sanitizeImage(imageSrc);
     if (caption) caption.textContent = altText || 'Aurelia Atelier Archival View';
     modal.classList.add('active');
     document.body.style.overflow = 'hidden';
@@ -495,7 +621,7 @@ function addCurrentProductToBag() {
     price: 1280.00,
     size: selectedSizeOption,
     color: selectedColorway,
-    image: 'Assets/Woman_wearing_tailored_blazer_2K_20261015150558.jpg',
+    image: 'Assets/Woman_wearing_tailored_blazer_2K_20261015150558.webp',
     quantity: 1,
     material: '100% Mongolian Cashmere'
   });
@@ -503,7 +629,6 @@ function addCurrentProductToBag() {
 
 // Checkout Specific Interactions
 function initCheckout() {
-  // Shipping Radio Options
   const shippingRadios = document.querySelectorAll('input[name="shipping_method"]');
   shippingRadios.forEach((radio) => {
     radio.addEventListener('change', (e) => {
@@ -514,7 +639,6 @@ function initCheckout() {
       window.atelierStore.selectedShippingCost = cost;
       window.atelierStore.updateCheckoutSummary();
 
-      // Style active radio container
       document.querySelectorAll('input[name="shipping_method"]').forEach((r) => {
         const parentLabel = r.closest('label');
         if (r.checked) {
@@ -528,33 +652,34 @@ function initCheckout() {
     });
   });
 
-  // Payment Tabs
+  // Payment Selection Tabs
   const tabCC = document.getElementById('tab-cc');
   const tabPP = document.getElementById('tab-pp');
+  const tabKlarna = document.getElementById('tab-klarna');
   const ccFields = document.getElementById('card-fields-container');
   const ppFields = document.getElementById('paypal-fields-container');
+  const klarnaFields = document.getElementById('klarna-fields-container');
 
-  if (tabCC && tabPP) {
-    tabCC.addEventListener('click', () => {
-      tabCC.className = 'bg-surface py-3 px-4 text-center font-label-uppercase text-label-uppercase text-primary border-b-2 border-primary';
-      tabPP.className = 'bg-surface-container-low py-3 px-4 text-center font-label-uppercase text-label-uppercase text-on-surface-variant hover:text-primary transition-colors';
-      if (ccFields) ccFields.style.display = 'block';
-      if (ppFields) ppFields.style.display = 'none';
+  function setPaymentTab(activeTab, showContainer) {
+    [tabCC, tabPP, tabKlarna].forEach((tab) => {
+      if (tab) {
+        tab.className = 'py-3 px-4 text-center font-label-uppercase text-xs transition-colors ' +
+          (tab === activeTab ? 'bg-surface text-primary border-b-2 border-primary font-semibold' : 'bg-surface-container-low text-on-surface-variant hover:text-primary');
+      }
     });
-
-    tabPP.addEventListener('click', () => {
-      tabPP.className = 'bg-surface py-3 px-4 text-center font-label-uppercase text-label-uppercase text-primary border-b-2 border-primary';
-      tabCC.className = 'bg-surface-container-low py-3 px-4 text-center font-label-uppercase text-label-uppercase text-on-surface-variant hover:text-primary transition-colors';
-      if (ccFields) ccFields.style.display = 'none';
-      if (ppFields) ppFields.style.display = 'block';
+    [ccFields, ppFields, klarnaFields].forEach((c) => {
+      if (c) c.style.display = (c === showContainer) ? 'block' : 'none';
     });
   }
 
-  // Initial Summary Render
+  if (tabCC) tabCC.addEventListener('click', () => setPaymentTab(tabCC, ccFields));
+  if (tabPP) tabPP.addEventListener('click', () => setPaymentTab(tabPP, ppFields));
+  if (tabKlarna) tabKlarna.addEventListener('click', () => setPaymentTab(tabKlarna, klarnaFields));
+
   window.atelierStore.updateCheckoutSummary();
 }
 
-// Promo Code Apply
+// Promo Code / Courtesy Voucher Apply
 function applyVoucherCode() {
   const input = document.getElementById('voucher-code-input');
   if (!input) return;
@@ -566,13 +691,19 @@ function applyVoucherCode() {
     window.atelierStore.updateCheckoutSummary();
     showToast('Courtesy Applied', '15% Seasonal Collector discount applied to order.', 'redeem');
     input.value = '';
+  } else if (code === 'ATELIER10' || code === 'WELCOME10') {
+    const discount = window.atelierStore.getCartSubtotal() * 0.10;
+    window.atelierStore.appliedDiscount = discount;
+    window.atelierStore.updateCheckoutSummary();
+    showToast('Courtesy Applied', '10% Welcome gift applied to order.', 'redeem');
+    input.value = '';
   } else if (code === 'VIP50') {
     window.atelierStore.appliedDiscount = 50.00;
     window.atelierStore.updateCheckoutSummary();
     showToast('Courtesy Applied', '€50 Private Invitation credit applied.', 'redeem');
     input.value = '';
   } else {
-    showToast('Invalid Code', 'Please enter a valid invitation code (Try: AURELIA15)', 'error');
+    showToast('Invalid Code', 'Please enter a valid invitation code (Try: AURELIA15 or ATELIER10)', 'error');
   }
 }
 
@@ -589,21 +720,25 @@ function handleCheckoutSubmit(event) {
   }
 
   setTimeout(() => {
-    // Show Confirmation Modal
     const modal = document.getElementById('order-confirmation-modal');
     if (modal) {
       modal.classList.add('active');
       document.body.style.overflow = 'hidden';
-      // Clear cart
+      // Reset cart upon successful order
       window.atelierStore.cart = [];
       window.atelierStore.saveCart();
     }
   }, 1200);
 }
 
-// DOM Ready initialization
+// Currency Switcher
+function switchCurrency(code) {
+  showToast('Currency Selected', `Displaying prices in ${code}. Real-time ECB rates applied.`, 'payments');
+}
+
+// DOM Ready Initialization
 document.addEventListener('DOMContentLoaded', () => {
-  // Sticky header scroll shadow
+  // Sticky header scroll elevation
   const header = document.querySelector('.atelier-header');
   if (header) {
     window.addEventListener('scroll', () => {
@@ -615,23 +750,32 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
+  // Sticky Mobile PDP Bar Observer
+  const pdpCta = document.getElementById('pdp-main-cta');
+  const stickyMobileBar = document.getElementById('sticky-mobile-buybar');
+  if (pdpCta && stickyMobileBar) {
+    window.addEventListener('scroll', () => {
+      const rect = pdpCta.getBoundingClientRect();
+      if (rect.bottom < 0) {
+        stickyMobileBar.classList.add('visible');
+      } else {
+        stickyMobileBar.classList.remove('visible');
+      }
+    });
+  }
+
+  // Close open popovers on outside click
+  document.addEventListener('click', (e) => {
+    if (!e.target.closest('.hotspot-pin') && !e.target.closest('.hotspot-popover')) {
+      document.querySelectorAll('.hotspot-popover').forEach((p) => p.classList.remove('active'));
+    }
+  });
+
   // Check if on Checkout page
   if (document.getElementById('checkout-grand-total')) {
     initCheckout();
   }
 
-  // Global Wishlist button listeners
-  document.querySelectorAll('.wishlist-toggle-btn').forEach((btn) => {
-    btn.addEventListener('click', (e) => {
-      e.preventDefault();
-      e.stopPropagation();
-      const id = btn.getAttribute('data-product-id') || 'product-item';
-      const title = btn.getAttribute('data-product-title') || 'Atelier Garment';
-      const isAdded = window.atelierStore.toggleWishlist(id, title);
-      const icon = btn.querySelector('.material-symbols-outlined');
-      if (icon) {
-        icon.style.fontVariationSettings = isAdded ? "'FILL' 1" : "'FILL' 0";
-      }
-    });
-  });
+  // Sync wishlist icons
+  window.atelierStore.syncWishlistIcons();
 });
